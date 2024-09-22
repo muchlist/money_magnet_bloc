@@ -24,6 +24,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  bloc: ^8.1.4
+  flutter_bloc: ^8.1.6
+  equatable: ^2.0.5
   auto_route: ^9.2.2
   cached_network_image: ^3.4.1
   cupertino_icons: ^1.0.8
@@ -58,6 +61,18 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins-Light.ttf
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato-Regular.ttf
+        - asset: assets/fonts/Lato-Bold.ttf
+        - asset: assets/fonts/Lato-Light.ttf
 
   assets:
     - assets/icons/emojione_money_bag.svg
