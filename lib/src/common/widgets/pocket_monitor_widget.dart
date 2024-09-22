@@ -3,7 +3,7 @@ import 'package:money_magnet_bloc/src/common/theme/colors.dart';
 import 'package:money_magnet_bloc/src/common/theme/ui_helper.dart';
 
 class PocketMonitorWidget extends StatelessWidget {
-  const PocketMonitorWidget({Key? key}) : super(key: key);
+  const PocketMonitorWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

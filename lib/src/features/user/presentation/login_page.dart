@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:money_magnet_bloc/src/common/theme/app_sizes.dart';
 import 'package:money_magnet_bloc/src/common/theme/ui_helper.dart';
 import 'package:money_magnet_bloc/src/common/widgets/disable_glow.dart';
-import 'package:money_magnet_bloc/src/common/widgets/input_decorator.dart';
 import 'package:money_magnet_bloc/src/common/widgets/snackbar.dart';
+import 'package:money_magnet_bloc/src/common/widgets/text_field.dart';
 import 'package:money_magnet_bloc/src/common/widgets/white_button.dart';
 import 'package:money_magnet_bloc/src/features/user/bloc/export.dart';
 import 'package:money_magnet_bloc/src/routes/app_router.gr.dart';
@@ -40,43 +40,68 @@ class LoginBody extends StatefulWidget {
 }
 
 class _LoginBodyState extends State<LoginBody> {
-  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _emailTC = TextEditingController();
   final _passwordTC = TextEditingController();
 
+  bool _isObscure = true;
+
+  @override
+  void dispose() {
+    _emailTC.dispose();
+    _passwordTC.dispose();
+    super.dispose();
+  }
+
+  void _login() {
+    if (_formKey.currentState?.validate() ?? false) {
+      String email = _emailTC.text;
+      String password = _passwordTC.text;
+
+      // ** trigger bloc event
+      context.read<UserBloc>().add(UserEvent.signIn(email, password));
+    }
+  }
+
+  void _toggleObscure() {
+    setState(() {
+      _isObscure = !_isObscure;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    // UserBloc userBloc = context.read<UserBloc>();
+
     return BlocListener<UserBloc, UserState>(
+      // bloc: userBloc,
       listener: (context, state) {
-        // Listening to state changes and showing toast notifications
         state.maybeWhen(
-            orElse: () {},
-            authenticated: () {
-              AutoRouter.of(context).replace(const NavigationRoute());
-            },
-            failure: (failure) {
-              showToastError(context: context, message: failure, onTop: false);
-            });
+          authenticated: () {
+            AutoRouter.of(context).replace(const NavigationRoute());
+          },
+          failure: (failure) {
+            showToastError(context: context, message: failure, onTop: false);
+          },
+          orElse: () {},
+        );
       },
       child: Form(
-        key: _formkey,
+        key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             gapH48,
             gapH48,
-
             Text(
               'Welcome to\nMoney Magnet',
               style: Theme.of(context).textTheme.headlineMedium!,
               textAlign: TextAlign.left,
             ),
-
             SizedBox(
               height: screenHeightPercentage(context, percent: 0.10),
             ),
-
             Text(
               'Login',
               style: Theme.of(context)
@@ -85,40 +110,45 @@ class _LoginBodyState extends State<LoginBody> {
                   .copyWith(color: Colors.grey),
               textAlign: TextAlign.left,
             ),
-
             gapH24,
-            // LOGIN text edit =====================================
-            TextFormField(
-              style: Theme.of(context).textTheme.titleSmall!,
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.next,
-              decoration: mainInputDecoration("Email", null),
+
+            // Input for email
+            CustomTextField(
+              controller: _emailTC,
+              label: 'Email',
+              showLabel: true,
               validator: (String? text) {
                 if (text == null || text.isEmpty) {
                   return 'Email cannot be empty';
                 }
                 return null;
               },
-              controller: _emailTC,
+              keyboardType: TextInputType.emailAddress,
             ),
+
             gapH12,
-            // PASSWORD text edit ================================
-            TextFormField(
-              style: Theme.of(context).textTheme.titleSmall!,
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: true,
-              decoration: mainInputDecoration("Password", null),
+
+            CustomTextField(
+              controller: _passwordTC,
+              label: 'Password',
+              obscureText: _isObscure,
+              showLabel: true,
+              suffixIcon: IconButton(
+                iconSize: 18,
+                icon: Icon(_isObscure
+                    ? Icons.visibility_rounded
+                    : Icons.visibility_off_rounded),
+                onPressed: _toggleObscure,
+              ),
               validator: (String? text) {
                 if (text == null || text.isEmpty) {
                   return 'Password cannot be empty';
                 }
                 return null;
               },
-              controller: _passwordTC,
             ),
 
             gapH24,
-
             BlocBuilder<UserBloc, UserState>(
               builder: (context, state) {
                 return state.maybeWhen(
@@ -130,22 +160,10 @@ class _LoginBodyState extends State<LoginBody> {
                 );
               },
             ),
-
             gapH16,
           ],
         ),
       ),
     );
-  }
-
-  void _login() {
-    if (_formkey.currentState?.validate() ?? false) {
-      // Success
-      String email = _emailTC.text;
-      String password = _passwordTC.text;
-
-      // Trigger event login
-      context.read<UserBloc>().add(UserEvent.signIn(email, password));
-    }
   }
 }

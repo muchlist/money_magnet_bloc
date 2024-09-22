@@ -3,11 +3,10 @@ import 'package:money_magnet_bloc/src/common/theme/colors.dart';
 
 class ButtonW extends StatelessWidget {
   const ButtonW(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.onPressed,
-      this.disabled = false})
-      : super(key: key);
+      this.disabled = false});
   final String title;
   final GestureTapCallback onPressed;
   final bool disabled;
@@ -38,7 +37,7 @@ class ButtonW extends StatelessWidget {
 }
 
 class ButtonWLoading extends StatelessWidget {
-  const ButtonWLoading({Key? key, required this.title}) : super(key: key);
+  const ButtonWLoading({super.key, required this.title});
   final String title;
 
   @override

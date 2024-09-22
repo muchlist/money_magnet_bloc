@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProgressButton extends StatefulWidget {
-  const ProgressButton({Key? key}) : super(key: key);
+  const ProgressButton({super.key});
 
   @override
   State<ProgressButton> createState() => _ProgressButtonState();
@@ -46,7 +46,7 @@ class _ProgressButtonState extends State<ProgressButton> {
 enum ButtonState { init, loading, done }
 
 class AnimatedProgressBtn extends StatefulWidget {
-  const AnimatedProgressBtn({Key? key}) : super(key: key);
+  const AnimatedProgressBtn({super.key});
 
   @override
   State<AnimatedProgressBtn> createState() => _AnimatedProgressBtnState();

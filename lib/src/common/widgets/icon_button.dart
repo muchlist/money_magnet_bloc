@@ -3,12 +3,11 @@ import 'package:money_magnet_bloc/src/common/theme/colors.dart';
 
 class ButtonWithIcon extends StatelessWidget {
   const ButtonWithIcon(
-      {Key? key,
+      {super.key,
       required this.iconData,
       required this.text,
       required this.tapTap,
-      this.color = MyColors.primaryColor})
-      : super(key: key);
+      this.color = MyColors.primaryColor});
   final IconData iconData;
   final String text;
   final GestureTapCallback tapTap;

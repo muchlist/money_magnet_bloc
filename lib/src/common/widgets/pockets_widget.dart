@@ -8,8 +8,10 @@ import 'package:money_magnet_bloc/src/common/theme/ui_helper.dart';
 
 class PocketWidget extends StatelessWidget {
   const PocketWidget(
-      {Key? key, required this.name, required this.balance, required this.icon})
-      : super(key: key);
+      {super.key,
+      required this.name,
+      required this.balance,
+      required this.icon});
 
   final String name;
   final String balance;
@@ -71,7 +73,7 @@ class PocketWidget extends StatelessWidget {
 }
 
 class PocketHomeWidget extends StatelessWidget {
-  const PocketHomeWidget({Key? key}) : super(key: key);
+  const PocketHomeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +124,7 @@ class PocketHomeWidget extends StatelessWidget {
 }
 
 class PocketWidgetButton extends StatelessWidget {
-  const PocketWidgetButton({Key? key}) : super(key: key);
+  const PocketWidgetButton({super.key});
 
   @override
   Widget build(BuildContext context) {

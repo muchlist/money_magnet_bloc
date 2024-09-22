@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DisableGlow extends StatelessWidget {
-  const DisableGlow({Key? key, required this.child}) : super(key: key);
+  const DisableGlow({super.key, required this.child});
 
   final Widget child;
 
