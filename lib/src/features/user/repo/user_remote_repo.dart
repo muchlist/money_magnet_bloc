@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:money_magnet_bloc/src/common/data/export.dart';
+import 'package:money_magnet_bloc/src/common/infrastructure/dio_client_basic.dart';
 import 'package:money_magnet_bloc/src/common/infrastructure/dio_extentions.dart';
 import 'package:money_magnet_bloc/src/config/remote_service.dart';
 import 'package:money_magnet_bloc/src/features/user/repo/user_dto.dart';
 
 class UserRemoteRepository {
-  final Dio _dio;
+  final DioBasicClient _dio;
 
   UserRemoteRepository(this._dio);
 
@@ -16,7 +17,7 @@ class UserRemoteRepository {
     );
 
     try {
-      final response = await _dio.postUri(
+      final response = await _dio.dio.postUri(
         requestUri,
         data: {
           'email': email,
@@ -90,7 +91,7 @@ class UserRemoteRepository {
     );
 
     try {
-      final response = await _dio.postUri(
+      final response = await _dio.dio.postUri(
         requestUri,
         data: {'refresh_token': refreshToken},
       );

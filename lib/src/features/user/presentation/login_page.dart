@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:money_magnet_bloc/src/common/theme/app_sizes.dart';
 import 'package:money_magnet_bloc/src/common/theme/ui_helper.dart';
+import 'package:money_magnet_bloc/src/common/utils/validate.dart';
 import 'package:money_magnet_bloc/src/common/widgets/disable_glow.dart';
 import 'package:money_magnet_bloc/src/common/widgets/snackbar.dart';
 import 'package:money_magnet_bloc/src/common/widgets/text_field.dart';
@@ -120,6 +121,9 @@ class _LoginBodyState extends State<LoginBody> {
               validator: (String? text) {
                 if (text == null || text.isEmpty) {
                   return 'Email cannot be empty';
+                }
+                if (!Validator().isValidEmail(text)) {
+                  return 'Email format is not valid';
                 }
                 return null;
               },

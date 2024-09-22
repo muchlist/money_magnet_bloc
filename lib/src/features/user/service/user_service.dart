@@ -51,11 +51,29 @@ class UserService {
     }
   }
 
-  Future<Result<String>> renewToken(String refreshToken) async {
+  Future<Result<String>> renewToken() async {
     try {
+      final refreshToken = await getRefreshToken();
+      if ((refreshToken == null) || (refreshToken.isEmpty)) {
+        return Result.withError(
+            errorType: ErrorType.authRefreshError,
+            message: "refresh token is empty");
+      }
+
+      final canRefresh = await isCanRefresh();
+      if (!canRefresh) {
+        return Result.withError(
+            errorType: ErrorType.authRefreshError,
+            message: "refresh token is expired");
+      }
+
       final userResponse = await _remoteRepository.refresh(refreshToken);
       if (userResponse.hasError()) {
-        return userResponse.convertError<String>();
+        return userResponse.convertError<String>()
+          ..wrapError(
+            ErrorType.authRefreshError,
+            "failed to refresh token",
+          );
       }
 
       final data = userResponse.getData();
