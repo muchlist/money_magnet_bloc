@@ -60,7 +60,7 @@ class _LoginBodyState extends State<LoginBody> {
       String password = _passwordTC.text;
 
       // ** trigger bloc event
-      context.read<UserBloc>().add(UserEvent.signIn(email, password));
+      context.read<AuthBloc>().add(AuthEvent.signIn(email, password));
     }
   }
 
@@ -72,9 +72,9 @@ class _LoginBodyState extends State<LoginBody> {
 
   @override
   Widget build(BuildContext context) {
-    // UserBloc userBloc = context.read<UserBloc>();
+    // AuthBloc userBloc = context.read<AuthBloc>();
 
-    return BlocListener<UserBloc, UserState>(
+    return BlocListener<AuthBloc, AuthState>(
       // bloc: userBloc,
       listener: (context, state) {
         state.maybeWhen(
@@ -153,7 +153,7 @@ class _LoginBodyState extends State<LoginBody> {
             ),
 
             gapH24,
-            BlocBuilder<UserBloc, UserState>(
+            BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
                 return state.maybeWhen(
                   loading: () => const ButtonWLoading(title: "Loading..."),

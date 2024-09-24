@@ -2,14 +2,14 @@ import 'package:flutter/services.dart';
 import 'package:money_magnet_bloc/src/common/data/export.dart';
 import 'package:money_magnet_bloc/src/features/user/repo/secure_credential_interface.dart';
 import 'package:money_magnet_bloc/src/features/user/repo/user_local_repo.dart';
-import 'package:money_magnet_bloc/src/features/user/repo/user_remote_repo.dart';
+import 'package:money_magnet_bloc/src/features/user/repo/auth_remote_repo.dart';
 import 'package:money_magnet_bloc/src/features/user/entity/user.dart';
 
-class UserService {
-  final UserRemoteRepository _remoteRepository;
+class AuthService {
+  final AuthRemoteRepository _remoteRepository;
   final UserLocalRepository _localRepository;
   final ICredentialStorage _credentialsStorage;
-  UserService(
+  AuthService(
       this._remoteRepository, this._localRepository, this._credentialsStorage);
 
   Future<Result<User>> signIn(String email, String password) async {
@@ -95,7 +95,7 @@ class UserService {
     }
   }
 
-  Future<User?> getUserDetail() async {
+  Future<User?> getAuthDetail() async {
     try {
       return await _localRepository.getUserDetail();
     } catch (e) {

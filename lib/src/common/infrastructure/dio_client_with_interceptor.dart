@@ -1,16 +1,16 @@
 import 'package:dio/dio.dart';
-import 'package:money_magnet_bloc/src/features/user/service/user_service.dart';
+import 'package:money_magnet_bloc/src/features/user/service/auth_service.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 
 class DioClient {
   final Dio _dio = Dio();
-  final UserService userService;
+  final AuthService authService;
   bool isRefreshingToken = false;
   bool refreshTokenFailed = false;
   final Function? onLogoutCallback; // Callback untuk logout
 
-  DioClient(this.userService, {this.onLogoutCallback}) {
+  DioClient(this.authService, {this.onLogoutCallback}) {
     _dio
       ..options = BaseOptions(
         validateStatus: (status) => status != null && status < 501,
@@ -32,7 +32,7 @@ class DioClient {
             // Check if the request should skip the refresh token logic
             if (options.extra['refreshTokenExempt'] != true &&
                 !refreshTokenFailed) {
-              final accessToken = await userService.getToken();
+              final accessToken = await authService.getToken();
               if (accessToken != null) {
                 options.headers['Authorization'] = 'Bearer $accessToken';
               }
@@ -49,12 +49,12 @@ class DioClient {
                 String? newAccessToken;
                 try {
                   // Trigger refresh token request
-                  final renewResult = await userService.renewToken();
+                  final renewResult = await authService.renewToken();
                   if (renewResult.hasError()) {
                     refreshTokenFailed = true; // Mark failure
 
                     // Optionally handle failed refresh token, such as logging out user
-                    // or force user to logout like await userService.logout();
+                    // or force user to logout like await authService.logout();
                     if (onLogoutCallback != null) {
                       onLogoutCallback!(); // Triggering the logout
                     }
