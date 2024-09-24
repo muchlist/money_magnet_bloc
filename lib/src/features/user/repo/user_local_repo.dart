@@ -11,6 +11,7 @@ class UserLocalRepository {
 
   Future<void> upsertUserDetail(User user) async {
     final json = user.toJson();
+    // remove token from sembast
     json['access_token'] = '';
     json['refresh_token'] = '';
 

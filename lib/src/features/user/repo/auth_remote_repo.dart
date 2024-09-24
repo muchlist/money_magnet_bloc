@@ -5,10 +5,10 @@ import 'package:money_magnet_bloc/src/common/infrastructure/dio_extentions.dart'
 import 'package:money_magnet_bloc/src/config/remote_service.dart';
 import 'package:money_magnet_bloc/src/features/user/repo/user_dto.dart';
 
-class UserRemoteRepository {
+class AuthRemoteRepository {
   final DioBasicClient _dio;
 
-  UserRemoteRepository(this._dio);
+  AuthRemoteRepository(this._dio);
 
   Future<Result<LoginDTO>> login(String email, String password) async {
     final requestUri = Uri.https(

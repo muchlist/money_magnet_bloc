@@ -4,15 +4,19 @@ import 'package:get_it/get_it.dart';
 import 'package:money_magnet_bloc/src/common/infrastructure/dio_client_basic.dart';
 import 'package:money_magnet_bloc/src/common/infrastructure/dio_client_with_interceptor.dart';
 import 'package:money_magnet_bloc/src/common/infrastructure/sembast.dart';
+import 'package:money_magnet_bloc/src/features/app_state/cubit/global/global_cubit.dart';
 import 'package:money_magnet_bloc/src/features/user/repo/secure_credential_storage.dart';
 import 'package:money_magnet_bloc/src/features/user/repo/user_local_repo.dart';
-import 'package:money_magnet_bloc/src/features/user/repo/user_remote_repo.dart';
-import 'package:money_magnet_bloc/src/features/user/service/user_service.dart';
+import 'package:money_magnet_bloc/src/features/user/repo/auth_remote_repo.dart';
+import 'package:money_magnet_bloc/src/features/user/service/auth_service.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> setupServiceLocator() async {
-  // Register Dio for UserService (simple Dio without complex interceptors)
+  // Register GlobalCubit
+  getIt.registerSingleton<GlobalCubit>(GlobalCubit());
+
+  // Register Dio for AuthService (simple Dio without complex interceptors)
   getIt.registerSingleton<DioBasicClient>(DioBasicClient());
 
   // Register Secure Storage
@@ -23,9 +27,9 @@ Future<void> setupServiceLocator() async {
   await sembast.init(); // Ensure Sembast is initialized before use
   getIt.registerSingleton<SembastDatabase>(sembast);
 
-  // Register Repositories (UserService uses the simple Dio instance)
-  getIt.registerSingleton<UserRemoteRepository>(
-    UserRemoteRepository(getIt<DioBasicClient>()), // The simple Dio
+  // Register Repositories (AuthService uses the simple Dio instance)
+  getIt.registerSingleton<AuthRemoteRepository>(
+    AuthRemoteRepository(getIt<DioBasicClient>()), // The simple Dio
   );
   getIt.registerSingleton<UserLocalRepository>(
     UserLocalRepository(getIt<SembastDatabase>()),
@@ -34,21 +38,22 @@ Future<void> setupServiceLocator() async {
     SecureCredentialStorage(getIt<FlutterSecureStorage>()),
   );
 
-  // Register UserService (using simple Dio)
-  getIt.registerSingleton<UserService>(
-    UserService(
-      getIt<UserRemoteRepository>(),
+  // Register AuthService (using simple Dio)
+  getIt.registerSingleton<AuthService>(
+    AuthService(
+      getIt<AuthRemoteRepository>(),
       getIt<UserLocalRepository>(),
       getIt<SecureCredentialStorage>(),
     ),
   );
 
-  // Register DioClient for other services after UserService is ready
+  // Register DioClient for other services after AuthService is ready
   getIt.registerSingleton<Dio>(
     DioClient(
-      getIt<UserService>(), // if needed for other services
+      getIt<AuthService>(),
+      // triggers the force logout in app state
       onLogoutCallback: () {
-        // TODO Add logout logic
+        getIt<GlobalCubit>().forceLogout();
       },
     ).dio,
   );
