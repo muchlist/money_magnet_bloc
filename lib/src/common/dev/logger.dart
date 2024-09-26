@@ -1,15 +1,15 @@
 import 'package:logger/logger.dart';
 
-class MyLogger {
-  MyLogger._privateConstructor();
-  static final MyLogger _instance = MyLogger._privateConstructor();
-  factory MyLogger() {
+class AppLogger {
+  AppLogger._privateConstructor();
+  static final AppLogger _instance = AppLogger._privateConstructor();
+  factory AppLogger() {
     return _instance;
   }
 
   final Logger _logger = Logger(
     level: Level.all,
-    printer: PrettyPrinter(),
+    // printer: PrettyPrinter(),
   );
 
   void i(String message) {
@@ -18,5 +18,9 @@ class MyLogger {
 
   void d(String message) {
     _logger.d(message);
+  }
+
+  void e(String message) {
+    _logger.e(message);
   }
 }

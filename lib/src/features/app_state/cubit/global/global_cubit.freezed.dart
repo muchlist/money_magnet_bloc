@@ -465,7 +465,8 @@ abstract class _Data implements GlobalState {
 
 /// @nodoc
 mixin _$AppState {
-  bool get refreshHome => throw _privateConstructorUsedError;
+  bool get refreshHome =>
+      throw _privateConstructorUsedError; // home need refresh
   bool get refreshBalance => throw _privateConstructorUsedError;
 
   /// Create a copy of AppState
@@ -563,6 +564,7 @@ class _$AppStateImpl extends _AppState {
 
   @override
   final bool refreshHome;
+// home need refresh
   @override
   final bool refreshBalance;
 
@@ -601,7 +603,7 @@ abstract class _AppState extends AppState {
   const _AppState._() : super._();
 
   @override
-  bool get refreshHome;
+  bool get refreshHome; // home need refresh
   @override
   bool get refreshBalance;
 
