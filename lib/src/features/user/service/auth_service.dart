@@ -37,14 +37,14 @@ class AuthService {
       }
 
       try {
-        await _localRepository.upsertUserDetail(userData.toDomain());
+        await _localRepository.upsertUserDetail(userData.toEntity());
       } catch (e) {
         return Result.withError(
             errorType: ErrorType.localDatabaseError,
             message: 'credential storage fail: ${e.toString()}');
       }
 
-      return Result.withData(data: userData.toDomain());
+      return Result.withData(data: userData.toEntity());
     } catch (e) {
       return Result.withError(
           errorType: ErrorType.unknownError, message: e.toString());

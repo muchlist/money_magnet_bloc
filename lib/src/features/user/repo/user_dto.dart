@@ -33,7 +33,7 @@ class LoginDTO with _$LoginDTO {
   factory LoginDTO.fromJson(Map<String, dynamic> json) =>
       _$LoginDTOFromJson(json);
 
-  User toDomain() {
+  User toEntity() {
     return User(
       id: id,
       email: email,

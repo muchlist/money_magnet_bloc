@@ -2,27 +2,27 @@ import 'package:dio/dio.dart';
 import 'package:money_magnet_bloc/src/common/data/api_error_handler.dart';
 import 'package:money_magnet_bloc/src/common/data/export.dart';
 import 'package:money_magnet_bloc/src/config/config.dart';
-import 'package:money_magnet_bloc/src/features/pocket/repo/pocket_dto.dart';
-import 'package:money_magnet_bloc/src/features/pocket/repo/pocket_list_dto.dart';
-import 'package:money_magnet_bloc/src/features/pocket/repo/pocket_remote_interface.dart';
+import 'package:money_magnet_bloc/src/features/spend/repo/spend_dto.dart';
+import 'package:money_magnet_bloc/src/features/spend/repo/spend_list_dto.dart';
+import 'package:money_magnet_bloc/src/features/spend/repo/spend_remote_interface.dart';
 
-class PocketRemoteRepository implements IPocketRemoteRepository {
+class SpendRemoteRepository implements ISpendRemoteRepository {
   final Dio _dio;
 
-  PocketRemoteRepository(this._dio);
+  SpendRemoteRepository(this._dio);
 
   @override
-  Future<Result<PocketDTO>> get(String pocketID) async {
-    if (pocketID.isEmpty) {
+  Future<Result<SpendDTO>> get(String spendID) async {
+    if (spendID.isEmpty) {
       return Result.withError(
         errorType: ErrorType.requestError,
-        message: 'pocket id is required',
+        message: 'id is required',
       );
     }
 
     final requestUri = Uri.https(
       RemoteConfig.baseURL,
-      '/pockets/{$pocketID}',
+      '/spends/{$spendID}',
     );
 
     try {
@@ -32,11 +32,11 @@ class PocketRemoteRepository implements IPocketRemoteRepository {
 
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         // Success
-        final data = PocketResponseDTO.fromJson(response.data);
+        final data = SpendResponseDTO.fromJson(response.data);
         return Result.withData(data: data.data!);
       } else if (response.statusCode! == 400 || response.statusCode! == 422) {
-        // Bad request from Pocket
-        final data = PocketResponseDTO.fromJson(response.data);
+        // Bad request from Spend
+        final data = SpendResponseDTO.fromJson(response.data);
         return Result.withError(
           errorType: ErrorType.requestError,
           message: data.error ?? '',
@@ -54,14 +54,27 @@ class PocketRemoteRepository implements IPocketRemoteRepository {
   }
 
   @override
-  Future<Result<List<PocketDTO>>> find({
+  Future<Result<List<SpendDTO>>> find({
     int page = 1,
-    int pageSize = 50,
-    String sort = "pocket_name",
+    int pageSize = 500,
+    String sort = "-date",
+    String pocketID = "",
+    String categoryID = "",
+    int? isIncome,
+    List<int> types = const <int>[],
+    String? dateStart,
+    String? dateEnd,
   }) async {
+    if (pocketID.isEmpty) {
+      return Result.withError(
+        errorType: ErrorType.requestError,
+        message: 'pocket_id is required',
+      );
+    }
+
     final requestUri = Uri.https(
       RemoteConfig.baseURL,
-      '/pockets',
+      '/spends/from-pocket/$pocketID',
       {"page": "$page", "page_size": "$pageSize", "sort": sort},
     );
 
@@ -72,7 +85,7 @@ class PocketRemoteRepository implements IPocketRemoteRepository {
 
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         // Success
-        final data = PocketListResponseDTO.fromJson(response.data);
+        final data = SpendListResponseDTO.fromJson(response.data);
         return Result.withData(
           data: data.data!,
           meta: {
@@ -81,8 +94,8 @@ class PocketRemoteRepository implements IPocketRemoteRepository {
           },
         );
       } else if (response.statusCode! == 400 || response.statusCode! == 422) {
-        // Bad request from Pocket
-        final data = PocketListResponseDTO.fromJson(response.data);
+        // Bad request from Spend
+        final data = SpendListResponseDTO.fromJson(response.data);
         return Result.withError(
           errorType: ErrorType.requestError,
           message: data.error ?? '',
@@ -100,26 +113,25 @@ class PocketRemoteRepository implements IPocketRemoteRepository {
   }
 
   @override
-  Future<Result<PocketDTO>> create(
-      String pocketName, String currency, int icon) async {
+  Future<Result<SpendDTO>> create(SpendReqDTO payload) async {
     final requestUri = Uri.https(
       RemoteConfig.baseURL,
-      '/pockets',
+      '/spends',
     );
 
     try {
       final response = await _dio.postUri(
         requestUri,
-        data: {"pocket_name": pocketName, "currency": currency, "icon": icon},
+        data: payload.toJson(),
       );
 
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         // Success
-        final data = PocketResponseDTO.fromJson(response.data);
+        final data = SpendResponseDTO.fromJson(response.data);
         return Result.withData(data: data.data!);
       } else if (response.statusCode! == 400 || response.statusCode! == 422) {
-        // Bad request from Pocket
-        final data = PocketResponseDTO.fromJson(response.data);
+        // Bad request from Spend
+        final data = SpendResponseDTO.fromJson(response.data);
         return Result.withError(
           errorType: ErrorType.requestError,
           message: data.error ?? '',
@@ -137,36 +149,29 @@ class PocketRemoteRepository implements IPocketRemoteRepository {
   }
 
   @override
-  Future<Result<PocketDTO>> update(
-    String pocketID,
-    String pocketName,
-    String currency,
-  ) async {
-    if (pocketID.isEmpty) {
+  Future<Result<SpendDTO>> update(String spendID, SpendReqDTO payload) async {
+    if (spendID.isEmpty) {
       return Result.withError(
         errorType: ErrorType.requestError,
-        message: 'pocket id is required',
+        message: 'id is required',
       );
     }
 
     final requestUri = Uri.https(
       RemoteConfig.baseURL,
-      '/pockets/$pocketID',
+      '/spends/$spendID',
     );
 
     try {
-      final response = await _dio.postUri(requestUri,
-          data: {"pocket_name": pocketName, "currency": currency});
+      final response = await _dio.postUri(requestUri, data: payload.toJson());
 
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         // Success
-        final data = PocketResponseDTO.fromJson(response.data);
-        return Result.withData(
-          data: data.data!,
-        );
+        final data = SpendResponseDTO.fromJson(response.data);
+        return Result.withData(data: data.data!);
       } else if (response.statusCode! == 400 || response.statusCode! == 422) {
-        // Bad request from Pocket
-        final data = PocketResponseDTO.fromJson(response.data);
+        // Bad request from Spend
+        final data = SpendResponseDTO.fromJson(response.data);
         return Result.withError(
           errorType: ErrorType.requestError,
           message: data.error ?? '',
@@ -181,5 +186,10 @@ class PocketRemoteRepository implements IPocketRemoteRepository {
     } catch (error) {
       return handleError(error);
     }
+  }
+
+  @override
+  Future<Result<String>> delete(String spendID) {
+    throw UnimplementedError();
   }
 }
