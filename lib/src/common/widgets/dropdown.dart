@@ -41,7 +41,7 @@ class AppDropdownTWidget<T extends Object?> extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppText.medium('${title.toUpperCase()}:',
-              color: MyColors.primaryColor),
+              color: AppColor.primaryColor),
           gapH8,
           GestureDetector(
             onTap: () {

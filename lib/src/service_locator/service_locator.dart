@@ -5,6 +5,9 @@ import 'package:money_magnet_bloc/src/common/infrastructure/dio_client_basic.dar
 import 'package:money_magnet_bloc/src/common/infrastructure/dio_client_with_interceptor.dart';
 import 'package:money_magnet_bloc/src/common/infrastructure/sembast.dart';
 import 'package:money_magnet_bloc/src/features/app_state/cubit/global/global_cubit.dart';
+import 'package:money_magnet_bloc/src/features/pocket/repo/pocket_remote_interface.dart';
+import 'package:money_magnet_bloc/src/features/pocket/repo/pocket_remote_repo.dart';
+import 'package:money_magnet_bloc/src/features/pocket/service/pocket_service.dart';
 import 'package:money_magnet_bloc/src/features/user/repo/secure_credential_storage.dart';
 import 'package:money_magnet_bloc/src/features/user/repo/user_local_repo.dart';
 import 'package:money_magnet_bloc/src/features/user/repo/auth_remote_repo.dart';
@@ -56,5 +59,15 @@ Future<void> setupServiceLocator() async {
         getIt<GlobalCubit>().forceLogout();
       },
     ).dio,
+  );
+
+  // Register Pocket Bloc dependency
+  getIt.registerSingleton<IPocketRemoteRepository>(
+    // use interface IPocketRemoteRepository just for example when the apps really need unit test
+    PocketRemoteRepository(getIt<Dio>()),
+  );
+
+  getIt.registerSingleton<PocketService>(
+    PocketService(getIt<IPocketRemoteRepository>()),
   );
 }

@@ -11,9 +11,9 @@ InputDecoration normalInputDecoration(String? label, Icon? prefixIcon) {
     prefixIcon: prefixIcon,
     // labelText: label,
     hintText: label,
-    hintStyle: const TextStyle(color: MyColors.blackColor, fontSize: 12),
+    hintStyle: const TextStyle(color: AppColor.blackColor, fontSize: 12),
     filled: true,
-    fillColor: MyColors.blueGreyColor,
+    fillColor: AppColor.blueGreyColor,
     errorStyle: TextStyle(color: Colors.red.shade200),
     contentPadding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
   );

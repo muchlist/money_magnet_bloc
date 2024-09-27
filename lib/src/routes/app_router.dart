@@ -10,11 +10,12 @@ class AppRouter extends RootStackRouter {
         //   path: '/splash',
         // ),
         CustomRoute(
-            page: LoginRoute.page,
-            path: '/login',
-            transitionsBuilder: TransitionsBuilders.slideBottom,
-            durationInMilliseconds: 400,
-            initial: true),
+          page: LoginRoute.page,
+          path: '/login',
+          transitionsBuilder: TransitionsBuilders.slideBottom,
+          durationInMilliseconds: 400,
+          // initial: true,
+        ),
         // AutoRoute(
         //   page: LoginRoute.page,
         //   path: '/login',
@@ -23,16 +24,16 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           page: NavigationRoute.page,
           path: '/navigation',
-          // initial: true,
+          initial: true,
         ),
         // AutoRoute(
         //   page: PocketRoute.page,
         //   path: '/pocket',
         // ),
-        // AutoRoute(
-        //   page: PocketAddRoute.page,
-        //   path: '/pocket-add',
-        // ),
+        AutoRoute(
+          page: PocketAddRoute.page,
+          path: '/pocket-add',
+        ),
         // AutoRoute(
         //   page: SpendAddRoute.page,
         //   path: '/spend-add',

@@ -10,7 +10,7 @@ InputDecoration mainInputDecoration(String? label, Icon? prefixIcon) {
     border: const OutlineInputBorder(),
     prefixIcon: prefixIcon,
     labelText: label,
-    labelStyle: const TextStyle(color: MyColors.primaryColor),
+    labelStyle: const TextStyle(color: AppColor.primaryColor),
     hintText: label,
     hintStyle: const TextStyle(color: Colors.grey),
     filled: true,

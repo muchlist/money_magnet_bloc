@@ -12,7 +12,8 @@ Result<T> handleError<T>(Object error) {
     } else if (error.response != null) {
       return Result.withError(
         message:
-            "service response code ${error.response?.statusCode}: ${error.message}",
+            // "service response code ${error.response?.statusCode}: ${error.message}",
+            "service response code ${error.response?.statusCode}",
         errorType: ErrorType.unknownError,
       );
     } else {

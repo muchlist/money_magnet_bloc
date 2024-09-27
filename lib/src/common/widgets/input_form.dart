@@ -53,7 +53,7 @@ class InputFormField extends StatelessWidget {
                 text: TextSpan(
                   text: label,
                   style: const TextStyle(
-                    color: MyColors.textColor,
+                    color: AppColor.textColor,
                     fontSize: 12,
                   ),
                   children: <TextSpan>[
@@ -88,27 +88,27 @@ class InputFormField extends StatelessWidget {
                   prefix: inputPrefix,
                   // grey background
                   filled: true,
-                  fillColor: MyColors.textColor.withOpacity(0.3),
+                  fillColor: AppColor.textColor.withOpacity(0.3),
                   // border
                   hintText: label,
 
                   hintStyle: TextStyle(
-                    color: MyColors.textColor.withOpacity(0.5),
+                    color: AppColor.textColor.withOpacity(0.5),
                     fontSize: 12,
                   ),
                   border: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: MyColors.textColor.withOpacity(0.3),
+                      color: AppColor.textColor.withOpacity(0.3),
                     ),
                   ),
                   focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: MyColors.blue,
+                      color: AppColor.blue,
                     ),
                   ),
                   disabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: MyColors.textColor.withOpacity(0.3),
+                      color: AppColor.textColor.withOpacity(0.3),
                     ),
                   ),
                 )
@@ -116,17 +116,17 @@ class InputFormField extends StatelessWidget {
                   prefix: inputPrefix,
                   hintText: label,
                   hintStyle: const TextStyle(
-                    color: MyColors.textColor,
+                    color: AppColor.textColor,
                     fontSize: 12,
                   ),
                   border: const UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: MyColors.textColor,
+                      color: AppColor.textColor,
                     ),
                   ),
                   focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: MyColors.blue,
+                      color: AppColor.blue,
                     ),
                   ),
                 ),

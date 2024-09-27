@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class MyColors {
+class AppColor {
   static const Color primaryColor = Color(0xFF598B9B);
-  static const Color greyColor = Color(0xFFD9D9D9);
+  static const Color greyColor = Color(0xFFD9D9D9); // used by card pocket list
 
   static const Color blue = Color(0xFF2565C8);
   static const Color textColor = Color(0xFF757575);

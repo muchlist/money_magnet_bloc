@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:money_magnet_bloc/src/common/theme/colors.dart';
 import 'package:money_magnet_bloc/src/common/widgets/text.dart';
 
-class CustomTextField extends StatelessWidget {
+class AppTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String label;
   final bool obscureText;
@@ -17,7 +18,7 @@ class CustomTextField extends StatelessWidget {
   final bool autoFocus;
   final Widget? suffixIcon;
 
-  const CustomTextField({
+  const AppTextField({
     super.key,
     this.controller,
     required this.label,
@@ -39,6 +40,7 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       autofocus: autoFocus,
       controller: controller,
+      cursorColor: AppColor.primaryColor,
       decoration: InputDecoration(
         label: (showLabel)
             ? AppText.medium(
@@ -57,8 +59,8 @@ class CustomTextField extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(5.0)),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide:
-              BorderSide(color: Colors.blue), // warna border ketika difokuskan
+          borderSide: BorderSide(
+              color: AppColor.primaryColor), // warna border ketika difokuskan
           borderRadius: BorderRadius.all(Radius.circular(5.0)),
         ),
         border: OutlineInputBorder(

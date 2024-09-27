@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:money_magnet_bloc/src/common/dev/logger.dart';
 import 'package:money_magnet_bloc/src/features/user/service/auth_service.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
@@ -13,7 +14,8 @@ class DioClient {
   DioClient(this.authService, {this.onLogoutCallback}) {
     _dio
       ..options = BaseOptions(
-        validateStatus: (status) => status != null && status < 501,
+        validateStatus: (status) =>
+            status != null && status < 501 && status != 401,
         responseType: ResponseType.json,
         connectTimeout: const Duration(seconds: 5),
         receiveTimeout: const Duration(seconds: 5),
@@ -29,17 +31,33 @@ class DioClient {
       ..interceptors.add(
         InterceptorsWrapper(
           onRequest: (options, handler) async {
+            AppLogger().i("on request interceptor dijalankan"); // TODO
+
             // Check if the request should skip the refresh token logic
             if (options.extra['refreshTokenExempt'] != true &&
                 !refreshTokenFailed) {
               final accessToken = await authService.getToken();
+
+              if (accessToken == null || accessToken.isEmpty) {
+                AppLogger().i("tokennya null"); // TODO
+              } else {
+                AppLogger().i("tokennya tidak null"); // TODO
+              }
+
               if (accessToken != null) {
                 options.headers['Authorization'] = 'Bearer $accessToken';
               }
             }
             return handler.next(options);
           },
+          // onError must be not in dio validateStatus
           onError: (DioException err, ErrorInterceptorHandler handler) async {
+            AppLogger().i("on error dijalankan. belum cek 401 "); // TODO
+            AppLogger()
+                .i("cek value refreshTokenFailed: $refreshTokenFailed"); // TODO
+            AppLogger()
+                .i("cek value isRefreshingToken: $isRefreshingToken"); // TODO
+
             if (err.response != null &&
                 err.response?.statusCode == 401 &&
                 !refreshTokenFailed) {
@@ -51,16 +69,24 @@ class DioClient {
                   // Trigger refresh token request
                   final renewResult = await authService.renewToken();
                   if (renewResult.hasError()) {
+                    AppLogger().i("renewToken ada error"); // TODO
+                    AppLogger().i("errornya ${renewResult.message}"); // TODO
                     refreshTokenFailed = true; // Mark failure
 
                     // Optionally handle failed refresh token, such as logging out user
                     // or force user to logout like await authService.logout();
                     if (onLogoutCallback != null) {
+                      AppLogger().i("onLogoutCallback dijalankan"); // TODO
+
+                      isRefreshingToken = false;
+                      refreshTokenFailed = false;
                       onLogoutCallback!(); // Triggering the logout
                     }
 
                     return handler.reject(err); // Reject if refresh fails
                   }
+
+                  AppLogger().i("renewToken berhasil"); // TODO
 
                   // new refresh token obtained
                   newAccessToken = renewResult.data;
@@ -76,6 +102,8 @@ class DioClient {
 
                 if (newAccessToken != null) {
                   // Update the failed request with new access token
+                  AppLogger().i("newAccessToken didapatkan"); // TODO
+
                   err.requestOptions.headers['Authorization'] =
                       'Bearer $newAccessToken';
 

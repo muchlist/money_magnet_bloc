@@ -7,7 +7,7 @@ class CircularButton extends StatelessWidget {
     required this.title,
     required this.onPressed,
     this.disabled = false,
-    this.buttonColor = MyColors.primaryColor,
+    this.buttonColor = AppColor.primaryColor,
     this.fontColor = Colors.white,
   });
 
