@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:money_magnet_bloc/src/common/widgets/text.dart';
 
-class CustomTextDisplay extends StatelessWidget {
+class AppTextDisplay extends StatelessWidget {
   final String text;
   final String label;
   final bool showLabel;
   final Color? fillColor;
 
-  const CustomTextDisplay({
+  const AppTextDisplay({
     super.key,
     required this.text,
     required this.label,

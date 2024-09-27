@@ -11,11 +11,11 @@ class PocketMonitorWidget extends StatelessWidget {
       height: 140,
       width: screenWidthPercentage(context, percent: 55 / 100),
       decoration: BoxDecoration(
-        color: MyColors.primaryColor,
+        color: AppColor.primaryColor,
         borderRadius: BorderRadius.circular(15),
         boxShadow: const [
           BoxShadow(
-            color: MyColors.primaryColor,
+            color: AppColor.primaryColor,
             blurRadius: 0.3,
           ),
         ],

@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PocketListEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getPocketList,
+    required TResult Function(bool skipIfLoaded) getPocketList,
     required TResult Function() getNextPocketList,
     required TResult Function(String pocketName, String currency, int icon)
         addPocket,
@@ -26,14 +26,14 @@ mixin _$PocketListEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getPocketList,
+    TResult? Function(bool skipIfLoaded)? getPocketList,
     TResult? Function()? getNextPocketList,
     TResult? Function(String pocketName, String currency, int icon)? addPocket,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getPocketList,
+    TResult Function(bool skipIfLoaded)? getPocketList,
     TResult Function()? getNextPocketList,
     TResult Function(String pocketName, String currency, int icon)? addPocket,
     required TResult orElse(),
@@ -89,6 +89,8 @@ abstract class _$$GetPocketListImplCopyWith<$Res> {
   factory _$$GetPocketListImplCopyWith(
           _$GetPocketListImpl value, $Res Function(_$GetPocketListImpl) then) =
       __$$GetPocketListImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool skipIfLoaded});
 }
 
 /// @nodoc
@@ -101,58 +103,85 @@ class __$$GetPocketListImplCopyWithImpl<$Res>
 
   /// Create a copy of PocketListEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? skipIfLoaded = null,
+  }) {
+    return _then(_$GetPocketListImpl(
+      skipIfLoaded: null == skipIfLoaded
+          ? _value.skipIfLoaded
+          : skipIfLoaded // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetPocketListImpl implements _GetPocketList {
-  const _$GetPocketListImpl();
+  const _$GetPocketListImpl({this.skipIfLoaded = false});
+
+  @override
+  @JsonKey()
+  final bool skipIfLoaded;
 
   @override
   String toString() {
-    return 'PocketListEvent.getPocketList()';
+    return 'PocketListEvent.getPocketList(skipIfLoaded: $skipIfLoaded)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetPocketListImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$GetPocketListImpl &&
+            (identical(other.skipIfLoaded, skipIfLoaded) ||
+                other.skipIfLoaded == skipIfLoaded));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, skipIfLoaded);
+
+  /// Create a copy of PocketListEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetPocketListImplCopyWith<_$GetPocketListImpl> get copyWith =>
+      __$$GetPocketListImplCopyWithImpl<_$GetPocketListImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getPocketList,
+    required TResult Function(bool skipIfLoaded) getPocketList,
     required TResult Function() getNextPocketList,
     required TResult Function(String pocketName, String currency, int icon)
         addPocket,
   }) {
-    return getPocketList();
+    return getPocketList(skipIfLoaded);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getPocketList,
+    TResult? Function(bool skipIfLoaded)? getPocketList,
     TResult? Function()? getNextPocketList,
     TResult? Function(String pocketName, String currency, int icon)? addPocket,
   }) {
-    return getPocketList?.call();
+    return getPocketList?.call(skipIfLoaded);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getPocketList,
+    TResult Function(bool skipIfLoaded)? getPocketList,
     TResult Function()? getNextPocketList,
     TResult Function(String pocketName, String currency, int icon)? addPocket,
     required TResult orElse(),
   }) {
     if (getPocketList != null) {
-      return getPocketList();
+      return getPocketList(skipIfLoaded);
     }
     return orElse();
   }
@@ -193,7 +222,15 @@ class _$GetPocketListImpl implements _GetPocketList {
 }
 
 abstract class _GetPocketList implements PocketListEvent {
-  const factory _GetPocketList() = _$GetPocketListImpl;
+  const factory _GetPocketList({final bool skipIfLoaded}) = _$GetPocketListImpl;
+
+  bool get skipIfLoaded;
+
+  /// Create a copy of PocketListEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GetPocketListImplCopyWith<_$GetPocketListImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -237,7 +274,7 @@ class _$GetNextPocketListImpl implements _GetNextPocketList {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getPocketList,
+    required TResult Function(bool skipIfLoaded) getPocketList,
     required TResult Function() getNextPocketList,
     required TResult Function(String pocketName, String currency, int icon)
         addPocket,
@@ -248,7 +285,7 @@ class _$GetNextPocketListImpl implements _GetNextPocketList {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getPocketList,
+    TResult? Function(bool skipIfLoaded)? getPocketList,
     TResult? Function()? getNextPocketList,
     TResult? Function(String pocketName, String currency, int icon)? addPocket,
   }) {
@@ -258,7 +295,7 @@ class _$GetNextPocketListImpl implements _GetNextPocketList {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getPocketList,
+    TResult Function(bool skipIfLoaded)? getPocketList,
     TResult Function()? getNextPocketList,
     TResult Function(String pocketName, String currency, int icon)? addPocket,
     required TResult orElse(),
@@ -394,7 +431,7 @@ class _$AddPocketImpl implements _AddPocket {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getPocketList,
+    required TResult Function(bool skipIfLoaded) getPocketList,
     required TResult Function() getNextPocketList,
     required TResult Function(String pocketName, String currency, int icon)
         addPocket,
@@ -405,7 +442,7 @@ class _$AddPocketImpl implements _AddPocket {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getPocketList,
+    TResult? Function(bool skipIfLoaded)? getPocketList,
     TResult? Function()? getNextPocketList,
     TResult? Function(String pocketName, String currency, int icon)? addPocket,
   }) {
@@ -415,7 +452,7 @@ class _$AddPocketImpl implements _AddPocket {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getPocketList,
+    TResult Function(bool skipIfLoaded)? getPocketList,
     TResult Function()? getNextPocketList,
     TResult Function(String pocketName, String currency, int icon)? addPocket,
     required TResult orElse(),

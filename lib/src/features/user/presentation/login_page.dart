@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:money_magnet_bloc/src/common/theme/app_sizes.dart';
+import 'package:money_magnet_bloc/src/common/theme/colors.dart';
 import 'package:money_magnet_bloc/src/common/theme/ui_helper.dart';
 import 'package:money_magnet_bloc/src/common/utils/validate.dart';
 import 'package:money_magnet_bloc/src/common/widgets/disable_glow.dart';
@@ -108,13 +109,13 @@ class _LoginBodyState extends State<LoginBody> {
               style: Theme.of(context)
                   .textTheme
                   .headlineSmall!
-                  .copyWith(color: Colors.grey),
+                  .copyWith(color: AppColor.blackColor),
               textAlign: TextAlign.left,
             ),
             gapH24,
 
             // Input for email
-            CustomTextField(
+            AppTextField(
               controller: _emailTC,
               label: 'Email',
               showLabel: true,
@@ -132,7 +133,7 @@ class _LoginBodyState extends State<LoginBody> {
 
             gapH12,
 
-            CustomTextField(
+            AppTextField(
               controller: _passwordTC,
               label: 'Password',
               obscureText: _isObscure,

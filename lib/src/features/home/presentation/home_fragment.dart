@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:money_magnet_bloc/src/common/theme/colors.dart';
-import 'package:money_magnet_bloc/src/common/widgets/balance_widget.dart';
+import 'package:money_magnet_bloc/src/common/widgets/pocket_balance_widget.dart';
 import 'package:money_magnet_bloc/src/common/widgets/disable_glow.dart';
 import 'package:money_magnet_bloc/src/common/widgets/pocket_monitor_widget.dart';
 import 'package:money_magnet_bloc/src/common/widgets/pockets_widget.dart';
@@ -21,7 +21,7 @@ class HomeFragment extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .headlineMedium!
-                  .copyWith(color: MyColors.blackColor),
+                  .copyWith(color: AppColor.blackColor),
             ),
             actions: const [
               Icon(

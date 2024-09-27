@@ -7,11 +7,12 @@ import 'package:money_magnet_bloc/src/common/theme/colors.dart';
 import 'package:money_magnet_bloc/src/common/theme/ui_helper.dart';
 
 class PocketWidget extends StatelessWidget {
-  const PocketWidget(
-      {super.key,
-      required this.name,
-      required this.balance,
-      required this.icon});
+  const PocketWidget({
+    super.key,
+    required this.name,
+    required this.balance,
+    required this.icon,
+  });
 
   final String name;
   final String balance;
@@ -23,11 +24,11 @@ class PocketWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: MyColors.greyColor,
+          color: AppColor.greyColor,
           borderRadius: BorderRadius.circular(15),
           boxShadow: const [
             BoxShadow(
-              color: MyColors.greyColor,
+              color: AppColor.greyColor,
               blurRadius: 0.5,
             ),
           ],
@@ -38,11 +39,6 @@ class PocketWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Spacer(),
-              // SvgPicture.asset(
-              //   moneyBag,
-              //   semanticsLabel: 'Pocket',
-              //   width: 37,
-              // ),
               Text(
                 getIcon(icon),
                 style: const TextStyle(fontSize: 30),
@@ -81,11 +77,11 @@ class PocketHomeWidget extends StatelessWidget {
       height: 140,
       width: screenWidthPercentage(context, percent: 35 / 100),
       decoration: BoxDecoration(
-        color: MyColors.greyColor,
+        color: AppColor.greyColor,
         borderRadius: BorderRadius.circular(15),
         boxShadow: const [
           BoxShadow(
-            color: MyColors.greyColor,
+            color: AppColor.greyColor,
             blurRadius: 0.3,
           ),
         ],
@@ -117,52 +113,6 @@ class PocketHomeWidget extends StatelessWidget {
                   .copyWith(color: Colors.black45),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class PocketWidgetButton extends StatelessWidget {
-  const PocketWidgetButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: const Color(0xFFE4DDCF),
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.deepOrange,
-              blurRadius: 0.5,
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Spacer(),
-              const Icon(
-                LineIcons.plusCircle,
-                size: 45,
-                color: Color(0xFFED991A),
-              ),
-              const Spacer(),
-              Text(
-                "Create Pocket",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(color: Colors.black, fontWeight: FontWeight.bold),
-              ),
-              const Spacer(),
-            ],
-          ),
         ),
       ),
     );

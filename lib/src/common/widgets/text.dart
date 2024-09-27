@@ -11,7 +11,7 @@ class AppText extends Text {
   AppText.small(
     super.data, {
     super.key,
-    this.color = MyColors.textColor,
+    this.color = AppColor.textColor,
     this.fontWeight = FontWeight.normal,
     super.textAlign = TextAlign.left,
     int? maxline,
@@ -35,7 +35,7 @@ class AppText extends Text {
   AppText.medium(
     super.data, {
     super.key,
-    this.color = MyColors.textColor,
+    this.color = AppColor.textColor,
     this.fontWeight = FontWeight.w600,
     super.textAlign = TextAlign.left,
     int? maxline,
@@ -61,7 +61,7 @@ class AppText extends Text {
   AppText.big(
     super.data, {
     super.key,
-    this.color = MyColors.textColor,
+    this.color = AppColor.textColor,
     this.fontWeight = FontWeight.w600,
     super.textAlign = TextAlign.left,
     int? maxline,
@@ -87,7 +87,7 @@ class AppText extends Text {
   AppText.large(
     super.data, {
     super.key,
-    this.color = MyColors.textColor,
+    this.color = AppColor.textColor,
     this.fontWeight = FontWeight.bold,
     super.textAlign = TextAlign.center,
     int? maxline,

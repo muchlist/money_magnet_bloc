@@ -4,7 +4,7 @@ import 'package:money_magnet_bloc/src/common/theme/colors.dart';
 
 ThemeData setupThemeData() {
   return ThemeData(
-    primaryColor: MyColors.primaryColor,
+    primaryColor: AppColor.primaryColor,
     scaffoldBackgroundColor: Colors.white,
     textTheme: textTheme(),
     appBarTheme: appBarTheme(),
@@ -17,7 +17,7 @@ ThemeData setupThemeData() {
 InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(28),
-    borderSide: const BorderSide(color: MyColors.textColor),
+    borderSide: const BorderSide(color: AppColor.textColor),
     gapPadding: 10,
   );
   return InputDecorationTheme(
@@ -71,7 +71,7 @@ AppBarTheme appBarTheme() {
     color: Colors.white,
     elevation: 0,
     // systemOverlayStyle: SystemUiOverlayStyle.light,
-    iconTheme: IconThemeData(color: MyColors.blackColor),
+    iconTheme: IconThemeData(color: AppColor.blackColor),
     // toolbarTextStyle: ,
     // titleTextStyle:
   );

@@ -7,7 +7,7 @@ class ButtonWithIcon extends StatelessWidget {
       required this.iconData,
       required this.text,
       required this.tapTap,
-      this.color = MyColors.primaryColor});
+      this.color = AppColor.primaryColor});
   final IconData iconData;
   final String text;
   final GestureTapCallback tapTap;

@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:money_magnet_bloc/src/features/home/presentation/dummy_fragment.dart';
 import 'package:money_magnet_bloc/src/features/home/presentation/home_fragment.dart';
+import 'package:money_magnet_bloc/src/features/pocket/presentation/page/pocket_list_fragment.dart';
 
 @RoutePage()
 class NavigationPage extends StatefulWidget {
@@ -18,7 +18,7 @@ class _NavigationPageState extends State<NavigationPage> {
 
   final _screen = [
     const HomeFragment(),
-    const DummyPage(),
+    const PocketListFragment(),
     const Center(child: Text("Search")),
     const Center(child: Text("Profile")),
   ];

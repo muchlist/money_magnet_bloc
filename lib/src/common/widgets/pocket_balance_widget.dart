@@ -14,7 +14,7 @@ class BalanceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: MyColors.greyColor, borderRadius: BorderRadius.circular(8)),
+          color: AppColor.greyColor, borderRadius: BorderRadius.circular(8)),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
         child: Column(
