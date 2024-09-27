@@ -20,7 +20,7 @@ class PocketService {
       }
 
       final pocketData = pocketResponse.getData();
-      return Result.withData(data: pocketData.toDomain());
+      return Result.withData(data: pocketData.toEntity());
     } catch (e) {
       return Result.withError(
         errorType: ErrorType.unknownError,
@@ -43,7 +43,7 @@ class PocketService {
       _hasNextPage = (pocketsMetaData['last_page'] ?? 0) > _currentPage;
 
       return Result.withData(
-          data: pocketsData.map((e) => e.toDomain()).toList());
+          data: pocketsData.map((e) => e.toEntity()).toList());
     } catch (e) {
       return Result.withError(
         errorType: ErrorType.unknownError,
@@ -67,7 +67,7 @@ class PocketService {
       }
 
       final pocketCreated = pocketResponse.getData();
-      return Result.withData(data: pocketCreated.toDomain());
+      return Result.withData(data: pocketCreated.toEntity());
     } catch (e) {
       return Result.withError(
         errorType: ErrorType.unknownError,
@@ -86,7 +86,7 @@ class PocketService {
         return pocketResponse.convertError<Pocket?>();
       }
       final pocketUpdated = pocketResponse.getData();
-      return Result.withData(data: pocketUpdated.toDomain());
+      return Result.withData(data: pocketUpdated.toEntity());
     } catch (e) {
       return Result.withError(
         errorType: ErrorType.unknownError,

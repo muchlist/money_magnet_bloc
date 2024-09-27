@@ -39,8 +39,8 @@ class PocketDTO with _$PocketDTO {
   factory PocketDTO.fromJson(Map<String, dynamic> json) =>
       _$PocketDTOFromJson(json);
 
-  Pocket toDomain() {
-    List<PocketUser> pocketUsers = users.map((e) => e.toDomain()).toList();
+  Pocket toEntity() {
+    List<PocketUser> pocketUsers = users.map((e) => e.toEntity()).toList();
 
     return Pocket(
       id: id,
@@ -71,7 +71,7 @@ class PocketUserDTO with _$PocketUserDTO {
   factory PocketUserDTO.fromJson(Map<String, dynamic> json) =>
       _$PocketUserDTOFromJson(json);
 
-  PocketUser toDomain() {
+  PocketUser toEntity() {
     return PocketUser(id: id, name: name, role: role);
   }
 }
