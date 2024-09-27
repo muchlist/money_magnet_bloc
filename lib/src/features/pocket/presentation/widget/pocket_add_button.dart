@@ -1,7 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:money_magnet_bloc/src/common/theme/colors.dart';
 
 class AddPocketButton extends StatelessWidget {
   const AddPocketButton({super.key});

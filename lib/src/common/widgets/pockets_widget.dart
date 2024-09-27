@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:money_magnet_bloc/src/common/constant/pocket_icon.dart';
 import 'package:money_magnet_bloc/src/common/utils/assets_const.dart';
 import 'package:money_magnet_bloc/src/common/theme/colors.dart';
