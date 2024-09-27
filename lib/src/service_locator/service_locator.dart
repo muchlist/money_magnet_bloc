@@ -8,6 +8,9 @@ import 'package:money_magnet_bloc/src/features/app_state/cubit/global/global_cub
 import 'package:money_magnet_bloc/src/features/pocket/repo/pocket_remote_interface.dart';
 import 'package:money_magnet_bloc/src/features/pocket/repo/pocket_remote_repo.dart';
 import 'package:money_magnet_bloc/src/features/pocket/service/pocket_service.dart';
+import 'package:money_magnet_bloc/src/features/spend/repo/spend_remote_interface.dart';
+import 'package:money_magnet_bloc/src/features/spend/repo/spend_remote_repo.dart';
+import 'package:money_magnet_bloc/src/features/spend/service/spend_service.dart';
 import 'package:money_magnet_bloc/src/features/user/repo/secure_credential_storage.dart';
 import 'package:money_magnet_bloc/src/features/user/repo/user_local_repo.dart';
 import 'package:money_magnet_bloc/src/features/user/repo/auth_remote_repo.dart';
@@ -69,5 +72,14 @@ Future<void> setupServiceLocator() async {
 
   getIt.registerSingleton<PocketService>(
     PocketService(getIt<IPocketRemoteRepository>()),
+  );
+
+  // Register Spend Bloc dependency
+  getIt.registerSingleton<ISpendRemoteRepository>(
+    SpendRemoteRepository(getIt<Dio>()),
+  );
+
+  getIt.registerSingleton<SpendService>(
+    SpendService(getIt<ISpendRemoteRepository>()),
   );
 }
