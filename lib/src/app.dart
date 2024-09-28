@@ -4,8 +4,6 @@ import 'package:money_magnet_bloc/src/common/theme/theme.dart';
 import 'package:money_magnet_bloc/src/features/app_state/cubit/global/global_cubit.dart';
 import 'package:money_magnet_bloc/src/features/pocket/bloc/pocket_list/pocket_list_bloc.dart';
 import 'package:money_magnet_bloc/src/features/pocket/service/pocket_service.dart';
-import 'package:money_magnet_bloc/src/features/spend/bloc/spend_list/spend_list_bloc.dart';
-import 'package:money_magnet_bloc/src/features/spend/service/spend_service.dart';
 import 'package:money_magnet_bloc/src/features/user/bloc/auth/auth_bloc.dart';
 import 'package:money_magnet_bloc/src/features/user/service/auth_service.dart';
 import 'package:money_magnet_bloc/src/routes/app_router.gr.dart';
@@ -23,14 +21,15 @@ class App extends StatelessWidget {
     final globalCubit = getIt<GlobalCubit>();
     final userService = getIt<AuthService>();
     final pocketService = getIt<PocketService>();
-    final spendService = getIt<SpendService>();
 
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: globalCubit),
         BlocProvider(create: (context) => AuthBloc(userService)),
         BlocProvider(create: (context) => PocketListBloc(pocketService)),
-        BlocProvider(create: (context) => SpendListBloc(spendService)),
+
+        // ** bloc provider in specific screen
+        // SpendListBloc(spendService)), -- features/pocket/presentation/page/pocket_detail_page.dart
       ],
       child: AppView(
         appRouter: appRouter,

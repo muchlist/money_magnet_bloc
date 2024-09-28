@@ -154,7 +154,7 @@ class AuthService {
       }
 
       final nowEpoch = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-      if (expiredAt < nowEpoch) {
+      if (expiredAt > nowEpoch) {
         return true;
       }
     } on PlatformException {

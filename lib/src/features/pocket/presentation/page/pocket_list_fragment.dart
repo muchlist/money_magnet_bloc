@@ -124,10 +124,10 @@ class _PocketBodyState extends State<PocketBody> {
                       }
                       return GestureDetector(
                         onTap: () {
-                          // TODO to pocket detail
-                          // AutoRouter.of(context).push(
-                          //   PocketRoute(pocketDetail: state.pockets[index]),
-                          // );
+                          AutoRouter.of(context).push(
+                            PocketDetailRoute(
+                                pocketDetail: state.pockets[index]),
+                          );
                         },
                         child: PocketWidget(
                           name: state.pockets[index].pocketName,

@@ -26,10 +26,10 @@ class AppRouter extends RootStackRouter {
           path: '/navigation',
           initial: true,
         ),
-        // AutoRoute(
-        //   page: PocketRoute.page,
-        //   path: '/pocket',
-        // ),
+        AutoRoute(
+          page: PocketDetailRoute.page,
+          path: '/pocket-detail',
+        ),
         AutoRoute(
           page: PocketAddRoute.page,
           path: '/pocket-add',
