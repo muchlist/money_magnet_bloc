@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:money_magnet_bloc/src/common/theme/colors.dart';
 import 'package:money_magnet_bloc/src/common/widgets/disable_glow.dart';
+import 'package:money_magnet_bloc/src/common/widgets/shimmer/shimmer_spend_tile_widget.dart';
 import 'package:money_magnet_bloc/src/features/pocket/bloc/export.dart';
 import 'package:money_magnet_bloc/src/features/pocket/entity/pocket.dart';
 import 'package:money_magnet_bloc/src/features/pocket/entity/pocket_helper.dart';
 import 'package:money_magnet_bloc/src/features/pocket/presentation/widget/balance_widget.dart';
 import 'package:money_magnet_bloc/src/features/spend/bloc/spend_list/spend_list_bloc.dart';
 import 'package:money_magnet_bloc/src/features/spend/entity/spend.dart';
-import 'package:money_magnet_bloc/src/features/spend/entity/spend_helper.dart';
 import 'package:money_magnet_bloc/src/features/spend/presentation/widget/spend_tile_widget.dart';
 import 'package:money_magnet_bloc/src/features/spend/service/spend_service.dart';
 import 'package:money_magnet_bloc/src/service_locator/service_locator.dart';
@@ -62,15 +62,11 @@ class _PocketDetailBodyState extends State<PocketDetailBody> {
             SpendListEvent.getSpendList(widget.pocketDetail.id,
                 skipIfLoaded: true),
           ),
-        child: BlocConsumer<SpendListBloc, SpendListState>(
-          listener: (context, state) {
-            // TODO : listener must be listen global state if pocket detail need to reload
-          },
-          builder: (context, state) {
-            final todaySpends = state.spends.todaySpendItems();
-            final notTodaySpends = state.spends.notTodaySpendItems();
-
-            return DisableGlow(
+        child: BlocListener<SpendListBloc, SpendListState>(
+            listener: (context, state) {
+              // TODO: implement listener
+            },
+            child: DisableGlow(
               child: CustomScrollView(
                 slivers: [
                   // suggest : sliver masih dapat di optimasi untuk mmenghindari rebuild AppBar
@@ -100,7 +96,7 @@ class _PocketDetailBodyState extends State<PocketDetailBody> {
                     padding: const EdgeInsets.only(
                         left: 16, top: 8, right: 16, bottom: 20),
                     sliver: SliverToBoxAdapter(
-                      // ** Block Builder
+                      // ** Block Builder PocketListBloc
                       child: BlocBuilder<PocketListBloc, PocketListState>(
                         builder: (context, state) {
                           return BalanceWidget(
@@ -116,87 +112,49 @@ class _PocketDetailBodyState extends State<PocketDetailBody> {
                     ),
                   ),
                   SliverPadding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8),
-                    sliver: SliverToBoxAdapter(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Today --",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            todaySpends.todaySpendMoney(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SliverPadding(
                     padding: const EdgeInsets.only(
                       left: 16.0,
                       right: 16.0,
                     ),
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                          Spend spend = todaySpends[index];
-                          return SpendTileWidget(
-                            detail: spend,
-                          );
-                        },
-                        childCount: todaySpends.length,
-                      ),
-                    ),
-                  ),
-                  const SliverPadding(padding: EdgeInsets.only(top: 16)),
-                  SliverPadding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8),
-                    sliver: SliverToBoxAdapter(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "--",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: const EdgeInsets.only(
-                      left: 16.0,
-                      right: 16.0,
-                    ),
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                          Spend spend = notTodaySpends[index];
-                          return SpendTileWidget(
-                            detail: spend,
-                          );
-                        },
-                        childCount: notTodaySpends.length,
-                      ),
+                    // ** Block Builder SpendListBloc
+                    sliver: BlocBuilder<SpendListBloc, SpendListState>(
+                      builder: (context, state) {
+                        final spendList = state.spends;
+
+                        return state.maybeWhen(
+                          loading: (spends) {
+                            // return const SliverToBoxAdapter(
+                            //   child: ShimmerSpendTileWidget(),
+                            // );
+
+                            return SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                                (BuildContext context, int index) {
+                                  return const ShimmerSpendTileWidget();
+                                },
+                                childCount: 2,
+                              ),
+                            );
+                          },
+                          orElse: () {
+                            return SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                                (BuildContext context, int index) {
+                                  Spend spend = spendList[index];
+                                  return SpendTileWidget(
+                                    detail: spend,
+                                  );
+                                },
+                                childCount: spendList.length,
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
                   ),
                 ],
               ),
-            );
-          },
-        ));
+            )));
   }
 }
