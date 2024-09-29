@@ -123,10 +123,6 @@ class _PocketDetailBodyState extends State<PocketDetailBody> {
 
                         return state.maybeWhen(
                           loading: (spends) {
-                            // return const SliverToBoxAdapter(
-                            //   child: ShimmerSpendTileWidget(),
-                            // );
-
                             return SliverList(
                               delegate: SliverChildBuilderDelegate(
                                 (BuildContext context, int index) {

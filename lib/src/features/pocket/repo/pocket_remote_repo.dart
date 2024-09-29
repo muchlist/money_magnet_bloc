@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:money_magnet_bloc/src/common/data/api_error_handler.dart';
 import 'package:money_magnet_bloc/src/common/data/export.dart';
+import 'package:money_magnet_bloc/src/common/dev/logger.dart';
 import 'package:money_magnet_bloc/src/config/config.dart';
 import 'package:money_magnet_bloc/src/features/pocket/repo/pocket_dto.dart';
 import 'package:money_magnet_bloc/src/features/pocket/repo/pocket_list_dto.dart';
@@ -22,7 +23,7 @@ class PocketRemoteRepository implements IPocketRemoteRepository {
 
     final requestUri = Uri.https(
       RemoteConfig.baseURL,
-      '/pockets/{$pocketID}',
+      '/pockets/$pocketID',
     );
 
     try {
