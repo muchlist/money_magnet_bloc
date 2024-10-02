@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:money_magnet_bloc/src/common/theme/colors.dart';
-import 'package:money_magnet_bloc/src/common/utils/async_runner.dart';
 import 'package:money_magnet_bloc/src/common/utils/strings.dart';
 import 'package:money_magnet_bloc/src/common/widgets/disable_glow.dart';
 import 'package:money_magnet_bloc/src/common/widgets/pocket_monitor_widget.dart';
 import 'package:money_magnet_bloc/src/common/widgets/pockets_home_widget.dart';
 import 'package:money_magnet_bloc/src/common/widgets/shimmer/shimmer_pocket_home_widget.dart';
-import 'package:money_magnet_bloc/src/features/home/bloc/home_pocket_detail/home_pocket_detail_cubit.dart';
+import 'package:money_magnet_bloc/src/common/widgets/shimmer/shimmer_spend_tile_widget.dart';
+import 'package:money_magnet_bloc/src/features/home/bloc/export.dart';
 import 'package:money_magnet_bloc/src/features/pocket/bloc/export.dart';
+import 'package:money_magnet_bloc/src/features/spend/bloc/spend_list/spend_list_bloc.dart';
+import 'package:money_magnet_bloc/src/features/spend/entity/spend_helper.dart';
+import 'package:money_magnet_bloc/src/features/spend/presentation/widget/spend_tile_widget.dart';
 
 class HomeFragment extends StatefulWidget {
   const HomeFragment({super.key});
@@ -19,13 +22,15 @@ class HomeFragment extends StatefulWidget {
 
 class _HomeFragmentState extends State<HomeFragment> {
   @override
-  void initState() {
-    super.initState();
-    runAsync(() {
-      context.read<HomePocketDetailCubit>().loadDetailPocket(
-          '01J89Y8C03H36GJ91NR7V4ZXMF',
-          skipIfLoaded: true); // TODO hardcoded
-    });
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // TODO : get detail pocket main pocket by saved config
+    if (context.mounted) {
+      // this will trigger listener when success in line 81-89
+      context
+          .read<HomePocketDetailCubit>()
+          .loadDetailPocket('00000000000000000000000000', skipIfLoaded: true);
+    }
   }
 
   @override
@@ -70,7 +75,19 @@ class _HomeFragmentState extends State<HomeFragment> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  BlocBuilder<HomePocketDetailCubit, PocketDetailState>(
+                  // ** block builder HomePocketDetailCubit
+                  BlocConsumer<HomePocketDetailCubit, PocketDetailState>(
+                    listener: (context, state) {
+                      state.whenOrNull(
+                        data: (detail) {
+                          // ** trigger loading spend when Pocket Detail Cubit Loaded
+                          context.read<HomeSpendListBloc>().add(
+                                SpendListEvent.getSpendList(detail.id,
+                                    skipIfLoaded: true),
+                              );
+                        },
+                      );
+                    },
                     builder: (context, state) {
                       return state.maybeWhen(
                         orElse: () {
@@ -86,33 +103,46 @@ class _HomeFragmentState extends State<HomeFragment> {
                       );
                     },
                   ),
-                  PocketMonitorWidget(),
+                  // ** block builder HomeSpendListBloc
+                  BlocBuilder<HomeSpendTodayCubit, HomeSpendTodayState>(
+                    builder: (context, state) {
+                      // TODO
+                      return PocketMonitorWidget();
+                    },
+                  ),
                 ],
               ),
             ),
           ),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-            sliver: SliverToBoxAdapter(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Hari ini",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(fontWeight: FontWeight.bold),
+            // ** block builder HomeSpendTodayCubit
+            sliver: BlocBuilder<HomeSpendTodayCubit, HomeSpendTodayState>(
+              builder: (context, state) {
+                final spendMoney = state.spends.totalSpendMoney();
+
+                return SliverToBoxAdapter(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Today",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        spendMoney,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
-                  Text(
-                    "- 200.000",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+                );
+              },
             ),
           ),
           SliverPadding(
@@ -120,14 +150,35 @@ class _HomeFragmentState extends State<HomeFragment> {
               left: 16.0,
               right: 16.0,
             ),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return const SizedBox();
-                  // return const SpendTileWidget(detail: null,);
-                },
-                childCount: 4, // 5 list items
-              ),
+            // ** block builder HomeSpendTodayCubit
+            sliver: BlocBuilder<HomeSpendTodayCubit, HomeSpendTodayState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  orElse: () {
+                    return const SliverToBoxAdapter(child: SizedBox.shrink());
+                  },
+                  loading: (spends, _) {
+                    return SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                          return const ShimmerSpendTileWidget();
+                        },
+                        childCount: 2,
+                      ),
+                    );
+                  },
+                  data: (spends, summary) {
+                    return SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                          return SpendTileWidget(detail: spends[index]);
+                        },
+                        childCount: spends.length,
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
           const SliverPadding(padding: EdgeInsets.only(top: 16)),
@@ -138,14 +189,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Agustus --",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "- 7.000.000",
+                    "Past --",
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium!
@@ -160,14 +204,35 @@ class _HomeFragmentState extends State<HomeFragment> {
               left: 16.0,
               right: 16.0,
             ),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return const SizedBox();
-                  // return const SpendTileWidget();
-                },
-                childCount: 5, // 5 list items
-              ),
+            // ** block builder HomeSpendPastCubit
+            sliver: BlocBuilder<HomeSpendPastCubit, HomeSpendPastState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  orElse: () {
+                    return const SliverToBoxAdapter(child: SizedBox.shrink());
+                  },
+                  loading: (spends) {
+                    return SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                          return const ShimmerSpendTileWidget();
+                        },
+                        childCount: 2,
+                      ),
+                    );
+                  },
+                  data: (spends) {
+                    return SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                          return SpendTileWidget(detail: spends[index]);
+                        },
+                        childCount: spends.length,
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
         ],

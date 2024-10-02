@@ -18,7 +18,7 @@ class Spend with _$Spend {
     required int price,
     required int balanceSnapshoot,
     required bool isIncome,
-    required int type,
+    required int type, // 1 need , 3 like , 4 want -- 2 (love) is skipped
     required DateTime date,
     required DateTime createdAt,
     required DateTime updatedAt,

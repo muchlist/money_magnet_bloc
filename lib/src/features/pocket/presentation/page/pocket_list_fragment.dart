@@ -9,6 +9,7 @@ import 'package:money_magnet_bloc/src/common/widgets/pockets_widget.dart';
 import 'package:money_magnet_bloc/src/common/widgets/shimmer/shimmer_pockets_widget.dart';
 import 'package:money_magnet_bloc/src/common/widgets/snackbar.dart';
 import 'package:money_magnet_bloc/src/features/pocket/bloc/export.dart';
+import 'package:money_magnet_bloc/src/features/pocket/entity/pocket.dart';
 import 'package:money_magnet_bloc/src/features/pocket/presentation/widget/balance_widget.dart';
 import 'package:money_magnet_bloc/src/features/pocket/presentation/widget/pocket_add_button.dart';
 import 'package:money_magnet_bloc/src/routes/app_router.gr.dart';
@@ -45,7 +46,8 @@ class _PocketBodyState extends State<PocketBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<PocketListBloc, PocketListState>(
+    // ** BlocListener PocketListBloc
+    return BlocListener<PocketListBloc, PocketListState>(
       listener: (context, state) {
         state.maybeWhen(
           failure: (pockets, failure) {
@@ -54,97 +56,141 @@ class _PocketBodyState extends State<PocketBody> {
           orElse: () {},
         );
       },
-      builder: (context, state) {
-        int balancInfo = 0;
-        for (var pocket in state.pockets) {
-          balancInfo = balancInfo + pocket.balance;
-        }
-
-        final isLoading = state.maybeWhen(
-          loading: (_) => true,
-          orElse: () => false,
-        );
-
-        return DisableGlow(
-          child: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                pinned: true,
-                title: Text(
-                  "Pockets",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineMedium!
-                      .copyWith(color: AppColor.blackColor),
-                ),
-                actions: const [
-                  Icon(
-                    LineIcons.circle,
-                    size: 35,
-                  ),
-                  SizedBox(width: 4),
-                  Icon(
-                    LineIcons.infoCircle,
-                    size: 35,
-                  ),
-                  SizedBox(width: 16),
-                ],
+      child: DisableGlow(
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              title: Text(
+                "Pockets",
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium!
+                    .copyWith(color: AppColor.blackColor),
               ),
-              SliverPadding(
-                padding: const EdgeInsets.only(left: 16, top: 8, right: 16),
-                sliver: SliverToBoxAdapter(
-                  child: BalanceWidget(
-                    balanceValue: balancInfo.toCurrencyString(),
-                    editors: const [],
-                  ),
+              actions: const [
+                Icon(
+                  LineIcons.circle,
+                  size: 35,
+                ),
+                SizedBox(width: 4),
+                Icon(
+                  LineIcons.infoCircle,
+                  size: 35,
+                ),
+                SizedBox(width: 16),
+              ],
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.only(left: 16, top: 8, right: 16),
+              sliver: SliverToBoxAdapter(
+                // ** BlocSelector PocketListBloc
+                child: BlocSelector<PocketListBloc, PocketListState, String>(
+                  selector: (state) {
+                    int balancInfo = 0;
+                    for (var pocket in state.pockets) {
+                      balancInfo = balancInfo + pocket.balance;
+                    }
+                    return balancInfo.toCurrencyString();
+                  },
+                  builder: (context, balance) {
+                    return BalanceWidget(
+                      balanceValue: balance,
+                      editors: const [],
+                    );
+                  },
                 ),
               ),
-              SliverPadding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-                sliver: SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.3 / 1,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      if (isLoading) {
-                        return const ShimmerPocketWidget();
-                      }
-                      if (index == state.pockets.length) {
-                        return GestureDetector(
-                          onTap: () {
-                            AutoRouter.of(context).push<String>(
-                              const PocketAddRoute(),
-                            );
-                          },
-                          child: const AddPocketButton(),
-                        );
-                      }
-                      return GestureDetector(
-                        onTap: () {
-                          AutoRouter.of(context).push(
-                            PocketDetailRoute(
-                                pocketDetail: state.pockets[index]),
-                          );
-                        },
-                        child: PocketWidget(
-                          name: state.pockets[index].pocketName,
-                          balance:
-                              state.pockets[index].balance.toCurrencyString(),
-                          icon: state.pockets[index].icon,
-                        ),
+            ),
+            SliverPadding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+              // ** BlocBuilder PocketListBloc
+              sliver: BlocBuilder<PocketListBloc, PocketListState>(
+                builder: (context, state) {
+                  return state.when(
+                    initial: (pockets) {
+                      return PocketsSliverGrid(
+                        pockets: pockets,
+                        isLoading: true,
                       );
                     },
-                    childCount: state.pockets.length + 1,
-                  ),
-                ),
+                    loading: (pockets) {
+                      return PocketsSliverGrid(
+                        pockets: pockets,
+                        isLoading: true,
+                      );
+                    },
+                    success: (pockets, _) {
+                      return PocketsSliverGrid(
+                        pockets: pockets,
+                        isLoading: false,
+                      );
+                    },
+                    failure: (pockets, failure) {
+                      return PocketsSliverGrid(
+                        pockets: pockets,
+                        isLoading: false,
+                      );
+                    },
+                  );
+                },
               ),
-            ],
-          ),
-        );
-      },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PocketsSliverGrid extends StatelessWidget {
+  const PocketsSliverGrid({
+    super.key,
+    required this.pockets,
+    required this.isLoading,
+  });
+
+  final List<Pocket> pockets;
+  final bool isLoading;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverGrid(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 1.3 / 1,
+      ),
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          if (isLoading) {
+            return const ShimmerPocketWidget();
+          }
+          if (index == pockets.length) {
+            return GestureDetector(
+              onTap: () {
+                AutoRouter.of(context).push<String>(
+                  const PocketAddRoute(),
+                );
+              },
+              child: const AddPocketButton(),
+            );
+          }
+          return GestureDetector(
+            onTap: () {
+              AutoRouter.of(context).push(
+                PocketDetailRoute(pocketDetail: pockets[index]),
+              );
+            },
+            child: PocketWidget(
+              name: pockets[index].pocketName,
+              balance: pockets[index].balance.toCurrencyString(),
+              icon: pockets[index].icon,
+            ),
+          );
+        },
+        childCount: pockets.length + 1,
+      ),
     );
   }
 }
