@@ -11,7 +11,7 @@ class AuthRemoteRepository {
 
   Future<Result<LoginDTO>> login(String email, String password) async {
     final requestUri = Uri.https(
-      RemoteConfig.baseURL,
+      EnvConfig.baseURL,
       '/user/login',
     );
 
@@ -49,7 +49,7 @@ class AuthRemoteRepository {
 
   Future<Result<RefreshDTO>> refresh(String refreshToken) async {
     final requestUri = Uri.https(
-      RemoteConfig.baseURL,
+      EnvConfig.baseURL,
       '/user/refresh',
     );
 
