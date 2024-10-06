@@ -28,7 +28,8 @@ mixin _$Spend {
   int get price => throw _privateConstructorUsedError;
   int get balanceSnapshoot => throw _privateConstructorUsedError;
   bool get isIncome => throw _privateConstructorUsedError;
-  int get type => throw _privateConstructorUsedError;
+  int get type =>
+      throw _privateConstructorUsedError; // 1 need , 3 like , 4 want -- 2 (love) is skipped
   DateTime get date => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
@@ -351,6 +352,7 @@ class _$SpendImpl extends _Spend {
   final bool isIncome;
   @override
   final int type;
+// 1 need , 3 like , 4 want -- 2 (love) is skipped
   @override
   final DateTime date;
   @override
@@ -475,7 +477,7 @@ abstract class _Spend extends Spend {
   @override
   bool get isIncome;
   @override
-  int get type;
+  int get type; // 1 need , 3 like , 4 want -- 2 (love) is skipped
   @override
   DateTime get date;
   @override

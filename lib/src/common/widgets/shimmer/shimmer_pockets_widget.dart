@@ -31,7 +31,6 @@ class ShimmerPocketWidget extends StatelessWidget {
     );
   }
 
-// jadikan shimmer yang ini didepan didalam stack
   Widget _buildShimmerEffect() {
     return Shimmer.fromColors(
       baseColor: Colors.grey[300]!,

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:money_magnet_bloc/src/common/theme/app_sizes.dart';
 import 'package:money_magnet_bloc/src/common/theme/colors.dart';
 import 'package:money_magnet_bloc/src/common/theme/ui_helper.dart';
+import 'package:money_magnet_bloc/src/features/home/entity/spend_summary.dart';
 
 class PocketMonitorWidget extends StatelessWidget {
-  const PocketMonitorWidget({super.key});
+  const PocketMonitorWidget({super.key, required this.summary});
+
+  final SpendSummary summary;
 
   @override
   Widget build(BuildContext context) {
@@ -21,46 +25,56 @@ class PocketMonitorWidget extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Spacer(),
+                gapH12,
                 Text(
-                  "Today %",
+                  "${summary.mode} %",
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
+                if (summary.totalIncome != "Rp 0" &&
+                    summary.totalIncome.isNotEmpty)
+                  Text(
+                    "Income",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(color: Colors.white),
+                  ),
                 Text(
-                  "Need",
+                  "Expense",
                   style: Theme.of(context)
                       .textTheme
-                      .bodyMedium!
+                      .bodySmall!
+                      .copyWith(color: Colors.white),
+                ),
+                const Spacer(),
+                Text(
+                  "  Need",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
                       .copyWith(color: Colors.white),
                 ),
                 Text(
-                  "Love",
+                  "  Like",
                   style: Theme.of(context)
                       .textTheme
-                      .bodyMedium!
+                      .bodySmall!
                       .copyWith(color: Colors.white),
                 ),
                 Text(
-                  "Like",
+                  "  Want",
                   style: Theme.of(context)
                       .textTheme
-                      .bodyMedium!
-                      .copyWith(color: Colors.white),
-                ),
-                Text(
-                  "Want",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
+                      .bodySmall!
                       .copyWith(color: Colors.white),
                 ),
               ],
@@ -68,37 +82,47 @@ class PocketMonitorWidget extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Spacer(),
+                gapH12,
                 const Text(
                   "",
                 ),
                 const Spacer(),
+                if (summary.totalIncome != "Rp 0" &&
+                    summary.totalIncome.isNotEmpty)
+                  Text(
+                    summary.totalIncome,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(color: Colors.white),
+                  ),
                 Text(
-                  "40.000 (30 %)",
+                  summary.totalOutcome,
                   style: Theme.of(context)
                       .textTheme
-                      .bodyMedium!
+                      .bodySmall!
+                      .copyWith(color: Colors.white),
+                ),
+                const Spacer(),
+                Text(
+                  summary.totalNeed,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
                       .copyWith(color: Colors.white),
                 ),
                 Text(
-                  "",
+                  summary.totalLike,
                   style: Theme.of(context)
                       .textTheme
-                      .bodyMedium!
+                      .bodySmall!
                       .copyWith(color: Colors.white),
                 ),
                 Text(
-                  "40.000 (30 %)",
+                  summary.totalWant,
                   style: Theme.of(context)
                       .textTheme
-                      .bodyMedium!
-                      .copyWith(color: Colors.white),
-                ),
-                Text(
-                  "40.000 (30 %)",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
+                      .bodySmall!
                       .copyWith(color: Colors.white),
                 ),
               ],

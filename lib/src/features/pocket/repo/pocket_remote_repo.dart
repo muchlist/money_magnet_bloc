@@ -22,7 +22,7 @@ class PocketRemoteRepository implements IPocketRemoteRepository {
 
     final requestUri = Uri.https(
       RemoteConfig.baseURL,
-      '/pockets/{$pocketID}',
+      '/pockets/$pocketID',
     );
 
     try {
