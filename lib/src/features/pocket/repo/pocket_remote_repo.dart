@@ -21,7 +21,7 @@ class PocketRemoteRepository implements IPocketRemoteRepository {
     }
 
     final requestUri = Uri.https(
-      RemoteConfig.baseURL,
+      EnvConfig.baseURL,
       '/pockets/$pocketID',
     );
 
@@ -60,7 +60,7 @@ class PocketRemoteRepository implements IPocketRemoteRepository {
     String sort = "pocket_name",
   }) async {
     final requestUri = Uri.https(
-      RemoteConfig.baseURL,
+      EnvConfig.baseURL,
       '/pockets',
       {"page": "$page", "page_size": "$pageSize", "sort": sort},
     );
@@ -103,7 +103,7 @@ class PocketRemoteRepository implements IPocketRemoteRepository {
   Future<Result<PocketDTO>> create(
       String pocketName, String currency, int icon) async {
     final requestUri = Uri.https(
-      RemoteConfig.baseURL,
+      EnvConfig.baseURL,
       '/pockets',
     );
 
@@ -150,7 +150,7 @@ class PocketRemoteRepository implements IPocketRemoteRepository {
     }
 
     final requestUri = Uri.https(
-      RemoteConfig.baseURL,
+      EnvConfig.baseURL,
       '/pockets/$pocketID',
     );
 

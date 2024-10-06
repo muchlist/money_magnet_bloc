@@ -21,7 +21,7 @@ class SpendRemoteRepository implements ISpendRemoteRepository {
     }
 
     final requestUri = Uri.https(
-      RemoteConfig.baseURL,
+      EnvConfig.baseURL,
       '/spends/{$spendID}',
     );
 
@@ -73,7 +73,7 @@ class SpendRemoteRepository implements ISpendRemoteRepository {
     }
 
     final requestUri = Uri.https(
-      RemoteConfig.baseURL,
+      EnvConfig.baseURL,
       '/spends/from-pocket/$pocketID',
       {"page": "$page", "page_size": "$pageSize", "sort": sort},
     );
@@ -115,7 +115,7 @@ class SpendRemoteRepository implements ISpendRemoteRepository {
   @override
   Future<Result<SpendDTO>> create(SpendReqDTO payload) async {
     final requestUri = Uri.https(
-      RemoteConfig.baseURL,
+      EnvConfig.baseURL,
       '/spends',
     );
 
@@ -158,7 +158,7 @@ class SpendRemoteRepository implements ISpendRemoteRepository {
     }
 
     final requestUri = Uri.https(
-      RemoteConfig.baseURL,
+      EnvConfig.baseURL,
       '/spends/$spendID',
     );
 

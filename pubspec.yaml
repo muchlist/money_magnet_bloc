@@ -51,6 +51,7 @@ dependencies:
   dotted_border: ^2.1.0
   line_icons: ^2.0.3
   get_it: ^8.0.0
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -78,4 +79,6 @@ flutter:
         - asset: assets/fonts/Lato-Light.ttf
 
   assets:
+    - .env
     - assets/icons/emojione_money_bag.svg
+
