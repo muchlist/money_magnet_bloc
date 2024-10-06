@@ -5,6 +5,8 @@ import 'package:money_magnet_bloc/src/common/infrastructure/dio_client_basic.dar
 import 'package:money_magnet_bloc/src/common/infrastructure/dio_client_with_interceptor.dart';
 import 'package:money_magnet_bloc/src/common/infrastructure/sembast.dart';
 import 'package:money_magnet_bloc/src/features/app_state/cubit/global/global_cubit.dart';
+import 'package:money_magnet_bloc/src/features/category/repo/category_remote_repo.dart';
+import 'package:money_magnet_bloc/src/features/category/service/category_service.dart';
 import 'package:money_magnet_bloc/src/features/pocket/repo/pocket_remote_interface.dart';
 import 'package:money_magnet_bloc/src/features/pocket/repo/pocket_remote_repo.dart';
 import 'package:money_magnet_bloc/src/features/pocket/service/pocket_service.dart';
@@ -89,5 +91,14 @@ Future<void> setupServiceLocator() async {
 
   getIt.registerSingleton<SpendService>(
     SpendService(getIt<ISpendRemoteRepository>()),
+  );
+
+  // Register Category Bloc dependency with Lazy
+  getIt.registerLazySingleton<CategoryRemoteRepository>(
+    () => CategoryRemoteRepository(getIt<Dio>()),
+  );
+
+  getIt.registerLazySingleton<CategoryService>(
+    () => CategoryService(getIt<CategoryRemoteRepository>()),
   );
 }
