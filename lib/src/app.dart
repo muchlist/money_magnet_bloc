@@ -5,11 +5,12 @@ import 'package:money_magnet_bloc/src/features/home/bloc/export.dart';
 import 'package:money_magnet_bloc/src/features/pocket/bloc/pocket_list/pocket_list_bloc.dart';
 import 'package:money_magnet_bloc/src/features/pocket/service/pocket_service.dart';
 import 'package:money_magnet_bloc/src/features/spend/service/spend_service.dart';
-import 'package:money_magnet_bloc/src/features/user/bloc/auth/auth_bloc.dart';
 import 'package:money_magnet_bloc/src/features/user/service/auth_service.dart';
 import 'package:money_magnet_bloc/src/routes/app_router.gr.dart';
 import 'package:money_magnet_bloc/src/service_locator/service_locator.dart';
 import 'package:money_magnet_bloc/src/routes/app_router.dart';
+
+import 'features/user/bloc/export.dart';
 
 class App extends StatelessWidget {
   App({super.key});

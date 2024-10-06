@@ -28,4 +28,21 @@ class PocketDetailCubit extends Cubit<PocketDetailState> {
     final data = result.getData();
     emit(PocketDetailState.data(data));
   }
+
+  void loadDetailMainPocket({bool skipIfLoaded = false}) async {
+    // skip if loaded
+    if (skipIfLoaded && state is _Data) {
+      return;
+    }
+
+    emit(PocketDetailState.loading(state.detail));
+    final result = await _service.getDetailMainPocket();
+    if (result.hasError()) {
+      emit(PocketDetailState.error(state.detail, result.message));
+      return;
+    }
+
+    final data = result.getData();
+    emit(PocketDetailState.data(data));
+  }
 }

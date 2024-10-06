@@ -24,12 +24,12 @@ class _HomeFragmentState extends State<HomeFragment> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // TODO : get detail pocket main pocket by saved config
+
     if (context.mounted) {
-      // this will trigger listener when success in line 81-89
+      // this will trigger listener when success in line 83-99
       context
           .read<HomePocketDetailCubit>()
-          .loadDetailPocket('00000000000000000000000000', skipIfLoaded: true);
+          .loadDetailMainPocket(skipIfLoaded: true);
     }
   }
 
@@ -60,15 +60,6 @@ class _HomeFragmentState extends State<HomeFragment> {
               SizedBox(width: 16),
             ],
           ),
-          // const SliverPadding(
-          //   padding: EdgeInsets.only(left: 16, top: 8, right: 16),
-          //   sliver: SliverToBoxAdapter(
-          //     child: BalanceWidget(
-          //       balanceValue: "Rp 500.0000",
-          //       editors: [],
-          //     ),
-          //   ),
-          // ),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
             sliver: SliverToBoxAdapter(
