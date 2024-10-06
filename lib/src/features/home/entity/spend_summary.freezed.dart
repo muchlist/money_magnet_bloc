@@ -22,6 +22,7 @@ mixin _$SpendSummary {
   String get totalNeed => throw _privateConstructorUsedError;
   String get totalLike => throw _privateConstructorUsedError;
   String get totalWant => throw _privateConstructorUsedError;
+  String get totalUncategorized => throw _privateConstructorUsedError;
 
   /// Create a copy of SpendSummary
   /// with the given fields replaced by the non-null parameter values.
@@ -42,7 +43,8 @@ abstract class $SpendSummaryCopyWith<$Res> {
       String totalOutcome,
       String totalNeed,
       String totalLike,
-      String totalWant});
+      String totalWant,
+      String totalUncategorized});
 }
 
 /// @nodoc
@@ -66,6 +68,7 @@ class _$SpendSummaryCopyWithImpl<$Res, $Val extends SpendSummary>
     Object? totalNeed = null,
     Object? totalLike = null,
     Object? totalWant = null,
+    Object? totalUncategorized = null,
   }) {
     return _then(_value.copyWith(
       mode: null == mode
@@ -92,6 +95,10 @@ class _$SpendSummaryCopyWithImpl<$Res, $Val extends SpendSummary>
           ? _value.totalWant
           : totalWant // ignore: cast_nullable_to_non_nullable
               as String,
+      totalUncategorized: null == totalUncategorized
+          ? _value.totalUncategorized
+          : totalUncategorized // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -110,7 +117,8 @@ abstract class _$$SpendSummaryImplCopyWith<$Res>
       String totalOutcome,
       String totalNeed,
       String totalLike,
-      String totalWant});
+      String totalWant,
+      String totalUncategorized});
 }
 
 /// @nodoc
@@ -132,6 +140,7 @@ class __$$SpendSummaryImplCopyWithImpl<$Res>
     Object? totalNeed = null,
     Object? totalLike = null,
     Object? totalWant = null,
+    Object? totalUncategorized = null,
   }) {
     return _then(_$SpendSummaryImpl(
       mode: null == mode
@@ -158,6 +167,10 @@ class __$$SpendSummaryImplCopyWithImpl<$Res>
           ? _value.totalWant
           : totalWant // ignore: cast_nullable_to_non_nullable
               as String,
+      totalUncategorized: null == totalUncategorized
+          ? _value.totalUncategorized
+          : totalUncategorized // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -171,7 +184,8 @@ class _$SpendSummaryImpl extends _SpendSummary {
       required this.totalOutcome,
       required this.totalNeed,
       required this.totalLike,
-      required this.totalWant})
+      required this.totalWant,
+      required this.totalUncategorized})
       : super._();
 
   @override
@@ -186,10 +200,12 @@ class _$SpendSummaryImpl extends _SpendSummary {
   final String totalLike;
   @override
   final String totalWant;
+  @override
+  final String totalUncategorized;
 
   @override
   String toString() {
-    return 'SpendSummary(mode: $mode, totalIncome: $totalIncome, totalOutcome: $totalOutcome, totalNeed: $totalNeed, totalLike: $totalLike, totalWant: $totalWant)';
+    return 'SpendSummary(mode: $mode, totalIncome: $totalIncome, totalOutcome: $totalOutcome, totalNeed: $totalNeed, totalLike: $totalLike, totalWant: $totalWant, totalUncategorized: $totalUncategorized)';
   }
 
   @override
@@ -207,12 +223,14 @@ class _$SpendSummaryImpl extends _SpendSummary {
             (identical(other.totalLike, totalLike) ||
                 other.totalLike == totalLike) &&
             (identical(other.totalWant, totalWant) ||
-                other.totalWant == totalWant));
+                other.totalWant == totalWant) &&
+            (identical(other.totalUncategorized, totalUncategorized) ||
+                other.totalUncategorized == totalUncategorized));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, mode, totalIncome, totalOutcome,
-      totalNeed, totalLike, totalWant);
+      totalNeed, totalLike, totalWant, totalUncategorized);
 
   /// Create a copy of SpendSummary
   /// with the given fields replaced by the non-null parameter values.
@@ -230,7 +248,8 @@ abstract class _SpendSummary extends SpendSummary {
       required final String totalOutcome,
       required final String totalNeed,
       required final String totalLike,
-      required final String totalWant}) = _$SpendSummaryImpl;
+      required final String totalWant,
+      required final String totalUncategorized}) = _$SpendSummaryImpl;
   const _SpendSummary._() : super._();
 
   @override
@@ -245,6 +264,8 @@ abstract class _SpendSummary extends SpendSummary {
   String get totalLike;
   @override
   String get totalWant;
+  @override
+  String get totalUncategorized;
 
   /// Create a copy of SpendSummary
   /// with the given fields replaced by the non-null parameter values.

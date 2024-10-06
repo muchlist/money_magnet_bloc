@@ -12,5 +12,16 @@ class SpendSummary with _$SpendSummary {
     required String totalNeed,
     required String totalLike,
     required String totalWant,
+    required String totalUncategorized,
   }) = _SpendSummary;
+
+  factory SpendSummary.empty() => const SpendSummary(
+        mode: "",
+        totalIncome: "",
+        totalOutcome: "",
+        totalNeed: "",
+        totalLike: "",
+        totalWant: "",
+        totalUncategorized: "",
+      );
 }

@@ -40,6 +40,11 @@ class App extends StatelessWidget {
             create: (context) => HomeSpendPastCubit(
                   BlocProvider.of<HomeSpendListBloc>(context),
                 )),
+        // ** HomeSpendSumCubit listen to HomeSpendListBloc
+        BlocProvider(
+            create: (context) => HomeSpendSumCubit(
+                  BlocProvider.of<HomeSpendListBloc>(context),
+                )),
         BlocProvider(create: (context) => PocketListBloc(pocketService)),
 
         // ** bloc provider in specific screen

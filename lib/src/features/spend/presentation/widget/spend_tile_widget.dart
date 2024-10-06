@@ -36,42 +36,48 @@ class SpendTileWidget extends StatelessWidget {
               style: const TextStyle(fontSize: 24),
             ),
             gapW12,
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  detail.name,
-                  style: Theme.of(context).textTheme.bodyMedium!,
-                ),
-                Text(
-                  detail.userName,
-                  style: Theme.of(context).textTheme.bodySmall!,
-                ),
-                Text(
-                  detail.date.toDisplay(),
-                  style: Theme.of(context).textTheme.bodySmall!,
-                ),
-              ],
+            Expanded(
+              flex: 2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    detail.name,
+                    style: Theme.of(context).textTheme.bodyMedium!,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    detail.userName,
+                    style: Theme.of(context).textTheme.bodySmall!,
+                  ),
+                  Text(
+                    detail.date.toDisplay(),
+                    style: Theme.of(context).textTheme.bodySmall!,
+                  ),
+                ],
+              ),
             ),
-            const Spacer(),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  detail.price.toCurrencyString(),
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: (detail.isIncome)
-                            ? Colors.green[400]
-                            : AppColor.blackColor,
-                      ),
-                ),
-                Text(
-                  detail.categoryName,
-                  style: Theme.of(context).textTheme.bodySmall!,
-                ),
-              ],
+            Expanded(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    detail.price.toCurrencyString(symbol: "Rp. "),
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: (detail.isIncome)
+                              ? Colors.green[400]
+                              : AppColor.blackColor,
+                        ),
+                  ),
+                  Text(
+                    detail.categoryName,
+                    style: Theme.of(context).textTheme.bodySmall!,
+                  ),
+                ],
+              ),
             ),
           ],
         ),

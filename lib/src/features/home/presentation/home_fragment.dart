@@ -103,11 +103,10 @@ class _HomeFragmentState extends State<HomeFragment> {
                       );
                     },
                   ),
-                  // ** block builder HomeSpendListBloc
-                  BlocBuilder<HomeSpendTodayCubit, HomeSpendTodayState>(
+                  // ** block builder HomeSpendSumCubit
+                  BlocBuilder<HomeSpendSumCubit, HomeSpendSumState>(
                     builder: (context, state) {
-                      // TODO
-                      return PocketMonitorWidget();
+                      return PocketMonitorWidget(summary: state.summary);
                     },
                   ),
                 ],
@@ -157,7 +156,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                   orElse: () {
                     return const SliverToBoxAdapter(child: SizedBox.shrink());
                   },
-                  loading: (spends, _) {
+                  loading: (spends) {
                     return SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
@@ -167,7 +166,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                       ),
                     );
                   },
-                  data: (spends, summary) {
+                  data: (spends) {
                     return SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {

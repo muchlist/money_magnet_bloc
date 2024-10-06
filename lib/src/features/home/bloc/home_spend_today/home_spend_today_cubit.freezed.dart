@@ -20,22 +20,22 @@ mixin _$HomeSpendTodayState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Spend> spends) initial,
-    required TResult Function(List<Spend> spends, SpendSummary summary) loading,
-    required TResult Function(List<Spend> spends, SpendSummary summary) data,
+    required TResult Function(List<Spend> spends) loading,
+    required TResult Function(List<Spend> spends) data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Spend> spends)? initial,
-    TResult? Function(List<Spend> spends, SpendSummary summary)? loading,
-    TResult? Function(List<Spend> spends, SpendSummary summary)? data,
+    TResult? Function(List<Spend> spends)? loading,
+    TResult? Function(List<Spend> spends)? data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Spend> spends)? initial,
-    TResult Function(List<Spend> spends, SpendSummary summary)? loading,
-    TResult Function(List<Spend> spends, SpendSummary summary)? data,
+    TResult Function(List<Spend> spends)? loading,
+    TResult Function(List<Spend> spends)? data,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -181,8 +181,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Spend> spends) initial,
-    required TResult Function(List<Spend> spends, SpendSummary summary) loading,
-    required TResult Function(List<Spend> spends, SpendSummary summary) data,
+    required TResult Function(List<Spend> spends) loading,
+    required TResult Function(List<Spend> spends) data,
   }) {
     return initial(spends);
   }
@@ -191,8 +191,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Spend> spends)? initial,
-    TResult? Function(List<Spend> spends, SpendSummary summary)? loading,
-    TResult? Function(List<Spend> spends, SpendSummary summary)? data,
+    TResult? Function(List<Spend> spends)? loading,
+    TResult? Function(List<Spend> spends)? data,
   }) {
     return initial?.call(spends);
   }
@@ -201,8 +201,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Spend> spends)? initial,
-    TResult Function(List<Spend> spends, SpendSummary summary)? loading,
-    TResult Function(List<Spend> spends, SpendSummary summary)? data,
+    TResult Function(List<Spend> spends)? loading,
+    TResult Function(List<Spend> spends)? data,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -268,9 +268,7 @@ abstract class _$$LoadingImplCopyWith<$Res>
       __$$LoadingImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Spend> spends, SpendSummary summary});
-
-  $SpendSummaryCopyWith<$Res> get summary;
+  $Res call({List<Spend> spends});
 }
 
 /// @nodoc
@@ -287,36 +285,20 @@ class __$$LoadingImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? spends = null,
-    Object? summary = null,
   }) {
     return _then(_$LoadingImpl(
       null == spends
           ? _value._spends
           : spends // ignore: cast_nullable_to_non_nullable
               as List<Spend>,
-      null == summary
-          ? _value.summary
-          : summary // ignore: cast_nullable_to_non_nullable
-              as SpendSummary,
     ));
-  }
-
-  /// Create a copy of HomeSpendTodayState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $SpendSummaryCopyWith<$Res> get summary {
-    return $SpendSummaryCopyWith<$Res>(_value.summary, (value) {
-      return _then(_value.copyWith(summary: value));
-    });
   }
 }
 
 /// @nodoc
 
 class _$LoadingImpl implements _Loading {
-  const _$LoadingImpl(final List<Spend> spends, this.summary)
-      : _spends = spends;
+  const _$LoadingImpl(final List<Spend> spends) : _spends = spends;
 
   final List<Spend> _spends;
   @override
@@ -327,11 +309,8 @@ class _$LoadingImpl implements _Loading {
   }
 
   @override
-  final SpendSummary summary;
-
-  @override
   String toString() {
-    return 'HomeSpendTodayState.loading(spends: $spends, summary: $summary)';
+    return 'HomeSpendTodayState.loading(spends: $spends)';
   }
 
   @override
@@ -339,13 +318,12 @@ class _$LoadingImpl implements _Loading {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadingImpl &&
-            const DeepCollectionEquality().equals(other._spends, _spends) &&
-            (identical(other.summary, summary) || other.summary == summary));
+            const DeepCollectionEquality().equals(other._spends, _spends));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_spends), summary);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_spends));
 
   /// Create a copy of HomeSpendTodayState
   /// with the given fields replaced by the non-null parameter values.
@@ -359,32 +337,32 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Spend> spends) initial,
-    required TResult Function(List<Spend> spends, SpendSummary summary) loading,
-    required TResult Function(List<Spend> spends, SpendSummary summary) data,
+    required TResult Function(List<Spend> spends) loading,
+    required TResult Function(List<Spend> spends) data,
   }) {
-    return loading(spends, summary);
+    return loading(spends);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Spend> spends)? initial,
-    TResult? Function(List<Spend> spends, SpendSummary summary)? loading,
-    TResult? Function(List<Spend> spends, SpendSummary summary)? data,
+    TResult? Function(List<Spend> spends)? loading,
+    TResult? Function(List<Spend> spends)? data,
   }) {
-    return loading?.call(spends, summary);
+    return loading?.call(spends);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Spend> spends)? initial,
-    TResult Function(List<Spend> spends, SpendSummary summary)? loading,
-    TResult Function(List<Spend> spends, SpendSummary summary)? data,
+    TResult Function(List<Spend> spends)? loading,
+    TResult Function(List<Spend> spends)? data,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading(spends, summary);
+      return loading(spends);
     }
     return orElse();
   }
@@ -425,12 +403,10 @@ class _$LoadingImpl implements _Loading {
 }
 
 abstract class _Loading implements HomeSpendTodayState {
-  const factory _Loading(final List<Spend> spends, final SpendSummary summary) =
-      _$LoadingImpl;
+  const factory _Loading(final List<Spend> spends) = _$LoadingImpl;
 
   @override
   List<Spend> get spends;
-  SpendSummary get summary;
 
   /// Create a copy of HomeSpendTodayState
   /// with the given fields replaced by the non-null parameter values.
@@ -448,9 +424,7 @@ abstract class _$$DataImplCopyWith<$Res>
       __$$DataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Spend> spends, SpendSummary summary});
-
-  $SpendSummaryCopyWith<$Res> get summary;
+  $Res call({List<Spend> spends});
 }
 
 /// @nodoc
@@ -466,35 +440,20 @@ class __$$DataImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? spends = null,
-    Object? summary = null,
   }) {
     return _then(_$DataImpl(
       null == spends
           ? _value._spends
           : spends // ignore: cast_nullable_to_non_nullable
               as List<Spend>,
-      null == summary
-          ? _value.summary
-          : summary // ignore: cast_nullable_to_non_nullable
-              as SpendSummary,
     ));
-  }
-
-  /// Create a copy of HomeSpendTodayState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $SpendSummaryCopyWith<$Res> get summary {
-    return $SpendSummaryCopyWith<$Res>(_value.summary, (value) {
-      return _then(_value.copyWith(summary: value));
-    });
   }
 }
 
 /// @nodoc
 
 class _$DataImpl implements _Data {
-  const _$DataImpl(final List<Spend> spends, this.summary) : _spends = spends;
+  const _$DataImpl(final List<Spend> spends) : _spends = spends;
 
   final List<Spend> _spends;
   @override
@@ -505,11 +464,8 @@ class _$DataImpl implements _Data {
   }
 
   @override
-  final SpendSummary summary;
-
-  @override
   String toString() {
-    return 'HomeSpendTodayState.data(spends: $spends, summary: $summary)';
+    return 'HomeSpendTodayState.data(spends: $spends)';
   }
 
   @override
@@ -517,13 +473,12 @@ class _$DataImpl implements _Data {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DataImpl &&
-            const DeepCollectionEquality().equals(other._spends, _spends) &&
-            (identical(other.summary, summary) || other.summary == summary));
+            const DeepCollectionEquality().equals(other._spends, _spends));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_spends), summary);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_spends));
 
   /// Create a copy of HomeSpendTodayState
   /// with the given fields replaced by the non-null parameter values.
@@ -537,32 +492,32 @@ class _$DataImpl implements _Data {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Spend> spends) initial,
-    required TResult Function(List<Spend> spends, SpendSummary summary) loading,
-    required TResult Function(List<Spend> spends, SpendSummary summary) data,
+    required TResult Function(List<Spend> spends) loading,
+    required TResult Function(List<Spend> spends) data,
   }) {
-    return data(spends, summary);
+    return data(spends);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Spend> spends)? initial,
-    TResult? Function(List<Spend> spends, SpendSummary summary)? loading,
-    TResult? Function(List<Spend> spends, SpendSummary summary)? data,
+    TResult? Function(List<Spend> spends)? loading,
+    TResult? Function(List<Spend> spends)? data,
   }) {
-    return data?.call(spends, summary);
+    return data?.call(spends);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Spend> spends)? initial,
-    TResult Function(List<Spend> spends, SpendSummary summary)? loading,
-    TResult Function(List<Spend> spends, SpendSummary summary)? data,
+    TResult Function(List<Spend> spends)? loading,
+    TResult Function(List<Spend> spends)? data,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(spends, summary);
+      return data(spends);
     }
     return orElse();
   }
@@ -603,12 +558,10 @@ class _$DataImpl implements _Data {
 }
 
 abstract class _Data implements HomeSpendTodayState {
-  const factory _Data(final List<Spend> spends, final SpendSummary summary) =
-      _$DataImpl;
+  const factory _Data(final List<Spend> spends) = _$DataImpl;
 
   @override
   List<Spend> get spends;
-  SpendSummary get summary;
 
   /// Create a copy of HomeSpendTodayState
   /// with the given fields replaced by the non-null parameter values.
