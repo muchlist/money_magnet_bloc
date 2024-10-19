@@ -3,6 +3,10 @@ const String iconGrants = '💸';
 const String iconRefund = '🔄';
 const String iconSale = '💰';
 const String iconRental = '🗓️';
+const String iconBonus = '🎁';
+const String iconInvestmentReturns = '📈';
+const String iconOtherIncome = '➕';
+
 const String iconBaby = '🍼';
 const String iconBeauty = '🪷';
 const String iconBill = '🧾';
@@ -23,6 +27,11 @@ const String iconTelephone = '☎️';
 const String iconInternet = '🌍';
 const String iconTransfort = '🚈';
 const String iconWork = '👔';
+const String iconDonation = '🤝';
+const String iconInvestment = '🏦';
+const String iconFamilyFriends = '👪';
+const String iconPets = '🐾';
+const String iconTechnology = '🖥️';
 const String iconDefault = '💵';
 
 String getIconCategory(int iconIndex) {
@@ -36,6 +45,9 @@ List<String> getIconCategoryList() {
     iconRefund,
     iconSale,
     iconRental,
+    iconBonus,
+    iconInvestmentReturns,
+    iconOtherIncome,
     iconBaby,
     iconBeauty,
     iconBill,
@@ -57,6 +69,11 @@ List<String> getIconCategoryList() {
     iconTransfort,
     iconWork,
     iconDefault,
+    iconDonation,
+    iconInvestment,
+    iconFamilyFriends,
+    iconPets,
+    iconTechnology,
   ];
 }
 
@@ -66,25 +83,33 @@ const Map<int, String> iconCategoryMap = {
   3: iconRefund,
   4: iconSale,
   5: iconRental,
-  6: iconBaby,
-  7: iconBeauty,
-  8: iconBill,
-  9: iconCar,
-  10: iconClothing,
-  11: iconEducation,
-  12: iconElectronic,
-  13: iconEntertainment,
-  14: iconFood,
-  15: iconHealth,
-  16: iconHome,
-  17: iconInsurance,
-  18: iconShopping,
-  19: iconSocial,
-  20: iconSport,
-  21: iconTax,
-  22: iconTelephone,
-  23: iconInternet,
-  24: iconTransfort,
-  25: iconWork,
-  26: iconDefault,
+  6: iconBonus,
+  7: iconInvestmentReturns,
+  8: iconOtherIncome,
+  31: iconBaby,
+  32: iconBeauty,
+  33: iconBill,
+  34: iconCar,
+  35: iconClothing,
+  36: iconEducation,
+  37: iconElectronic,
+  38: iconEntertainment,
+  39: iconFood,
+  40: iconHealth,
+  41: iconHome,
+  42: iconInsurance,
+  43: iconShopping,
+  44: iconSocial,
+  45: iconSport,
+  46: iconTax,
+  47: iconTelephone,
+  48: iconInternet,
+  50: iconTransfort,
+  51: iconWork,
+  52: iconDonation,
+  53: iconInvestment,
+  54: iconFamilyFriends,
+  55: iconPets,
+  56: iconTechnology,
+  57: iconDefault
 };
