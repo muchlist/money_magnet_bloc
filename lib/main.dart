@@ -6,27 +6,42 @@ import 'package:money_magnet_bloc/general_observer.dart';
 import 'package:money_magnet_bloc/src/app.dart';
 import 'package:money_magnet_bloc/src/config/config.dart';
 import 'package:money_magnet_bloc/src/features/splash/presentation/spash_screen.dart';
+import 'package:money_magnet_bloc/src/routes/app_router.dart';
 import 'package:money_magnet_bloc/src/service_locator/service_locator.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late Future<void> _initialization;
+  final approuter = AppRouter();
+
+  @override
+  void initState() {
+    super.initState();
+    _initialization = initializeApp();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'My App',
       home: FutureBuilder(
-        future: initializeApp(), // initiate all dependency
+        future: _initialization,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          // if loading, show splash screen
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const SplashScreen();
           } else {
-            return App(); // build App after all dependency completed
+            // build App after all dependency completed
+            return App(appRouter: approuter);
           }
         },
       ),

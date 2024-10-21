@@ -13,9 +13,9 @@ import 'package:money_magnet_bloc/src/routes/app_router.dart';
 import 'features/user/bloc/export.dart';
 
 class App extends StatelessWidget {
-  App({super.key});
+  const App({super.key, required this.appRouter});
 
-  final appRouter = AppRouter();
+  final AppRouter appRouter;
 
   @override
   Widget build(BuildContext context) {
