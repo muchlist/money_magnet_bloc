@@ -765,8 +765,6 @@ mixin _$SpendReqDTO {
   String get categoryID => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_income')
-  bool get isIncome => throw _privateConstructorUsedError;
   int get type => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
 
@@ -791,7 +789,6 @@ abstract class $SpendReqDTOCopyWith<$Res> {
       @JsonKey(name: 'category_id') String categoryID,
       String name,
       int price,
-      @JsonKey(name: 'is_income') bool isIncome,
       int type,
       String date});
 }
@@ -815,7 +812,6 @@ class _$SpendReqDTOCopyWithImpl<$Res, $Val extends SpendReqDTO>
     Object? categoryID = null,
     Object? name = null,
     Object? price = null,
-    Object? isIncome = null,
     Object? type = null,
     Object? date = null,
   }) {
@@ -836,10 +832,6 @@ class _$SpendReqDTOCopyWithImpl<$Res, $Val extends SpendReqDTO>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
-      isIncome: null == isIncome
-          ? _value.isIncome
-          : isIncome // ignore: cast_nullable_to_non_nullable
-              as bool,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -865,7 +857,6 @@ abstract class _$$SpendReqDTOImplCopyWith<$Res>
       @JsonKey(name: 'category_id') String categoryID,
       String name,
       int price,
-      @JsonKey(name: 'is_income') bool isIncome,
       int type,
       String date});
 }
@@ -887,7 +878,6 @@ class __$$SpendReqDTOImplCopyWithImpl<$Res>
     Object? categoryID = null,
     Object? name = null,
     Object? price = null,
-    Object? isIncome = null,
     Object? type = null,
     Object? date = null,
   }) {
@@ -908,10 +898,6 @@ class __$$SpendReqDTOImplCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
-      isIncome: null == isIncome
-          ? _value.isIncome
-          : isIncome // ignore: cast_nullable_to_non_nullable
-              as bool,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -932,7 +918,6 @@ class _$SpendReqDTOImpl extends _SpendReqDTO {
       @JsonKey(name: 'category_id') required this.categoryID,
       required this.name,
       required this.price,
-      @JsonKey(name: 'is_income') required this.isIncome,
       required this.type,
       required this.date})
       : super._();
@@ -951,16 +936,13 @@ class _$SpendReqDTOImpl extends _SpendReqDTO {
   @override
   final int price;
   @override
-  @JsonKey(name: 'is_income')
-  final bool isIncome;
-  @override
   final int type;
   @override
   final String date;
 
   @override
   String toString() {
-    return 'SpendReqDTO(pocketID: $pocketID, categoryID: $categoryID, name: $name, price: $price, isIncome: $isIncome, type: $type, date: $date)';
+    return 'SpendReqDTO(pocketID: $pocketID, categoryID: $categoryID, name: $name, price: $price, type: $type, date: $date)';
   }
 
   @override
@@ -974,16 +956,14 @@ class _$SpendReqDTOImpl extends _SpendReqDTO {
                 other.categoryID == categoryID) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.price, price) || other.price == price) &&
-            (identical(other.isIncome, isIncome) ||
-                other.isIncome == isIncome) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.date, date) || other.date == date));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, pocketID, categoryID, name, price, isIncome, type, date);
+  int get hashCode =>
+      Object.hash(runtimeType, pocketID, categoryID, name, price, type, date);
 
   /// Create a copy of SpendReqDTO
   /// with the given fields replaced by the non-null parameter values.
@@ -1007,7 +987,6 @@ abstract class _SpendReqDTO extends SpendReqDTO {
       @JsonKey(name: 'category_id') required final String categoryID,
       required final String name,
       required final int price,
-      @JsonKey(name: 'is_income') required final bool isIncome,
       required final int type,
       required final String date}) = _$SpendReqDTOImpl;
   const _SpendReqDTO._() : super._();
@@ -1025,9 +1004,6 @@ abstract class _SpendReqDTO extends SpendReqDTO {
   String get name;
   @override
   int get price;
-  @override
-  @JsonKey(name: 'is_income')
-  bool get isIncome;
   @override
   int get type;
   @override

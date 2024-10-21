@@ -16,23 +16,25 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SpendListEvent {
-  String get pocketID => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pocketID, bool skipIfLoaded) getSpendList,
     required TResult Function(String pocketID) getNextSpendList,
+    required TResult Function(SpendReqDTO data) addSpend,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pocketID, bool skipIfLoaded)? getSpendList,
     TResult? Function(String pocketID)? getNextSpendList,
+    TResult? Function(SpendReqDTO data)? addSpend,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pocketID, bool skipIfLoaded)? getSpendList,
     TResult Function(String pocketID)? getNextSpendList,
+    TResult Function(SpendReqDTO data)? addSpend,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -40,26 +42,23 @@ mixin _$SpendListEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSpendList value) getSpendList,
     required TResult Function(_GetNextSpendList value) getNextSpendList,
+    required TResult Function(_AddSpend value) addSpend,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSpendList value)? getSpendList,
     TResult? Function(_GetNextSpendList value)? getNextSpendList,
+    TResult? Function(_AddSpend value)? addSpend,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSpendList value)? getSpendList,
     TResult Function(_GetNextSpendList value)? getNextSpendList,
+    TResult Function(_AddSpend value)? addSpend,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  /// Create a copy of SpendListEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $SpendListEventCopyWith<SpendListEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -68,8 +67,6 @@ abstract class $SpendListEventCopyWith<$Res> {
   factory $SpendListEventCopyWith(
           SpendListEvent value, $Res Function(SpendListEvent) then) =
       _$SpendListEventCopyWithImpl<$Res, SpendListEvent>;
-  @useResult
-  $Res call({String pocketID});
 }
 
 /// @nodoc
@@ -84,27 +81,13 @@ class _$SpendListEventCopyWithImpl<$Res, $Val extends SpendListEvent>
 
   /// Create a copy of SpendListEvent
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? pocketID = null,
-  }) {
-    return _then(_value.copyWith(
-      pocketID: null == pocketID
-          ? _value.pocketID
-          : pocketID // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$GetSpendListImplCopyWith<$Res>
-    implements $SpendListEventCopyWith<$Res> {
+abstract class _$$GetSpendListImplCopyWith<$Res> {
   factory _$$GetSpendListImplCopyWith(
           _$GetSpendListImpl value, $Res Function(_$GetSpendListImpl) then) =
       __$$GetSpendListImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String pocketID, bool skipIfLoaded});
 }
@@ -181,6 +164,7 @@ class _$GetSpendListImpl implements _GetSpendList {
   TResult when<TResult extends Object?>({
     required TResult Function(String pocketID, bool skipIfLoaded) getSpendList,
     required TResult Function(String pocketID) getNextSpendList,
+    required TResult Function(SpendReqDTO data) addSpend,
   }) {
     return getSpendList(pocketID, skipIfLoaded);
   }
@@ -190,6 +174,7 @@ class _$GetSpendListImpl implements _GetSpendList {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pocketID, bool skipIfLoaded)? getSpendList,
     TResult? Function(String pocketID)? getNextSpendList,
+    TResult? Function(SpendReqDTO data)? addSpend,
   }) {
     return getSpendList?.call(pocketID, skipIfLoaded);
   }
@@ -199,6 +184,7 @@ class _$GetSpendListImpl implements _GetSpendList {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pocketID, bool skipIfLoaded)? getSpendList,
     TResult Function(String pocketID)? getNextSpendList,
+    TResult Function(SpendReqDTO data)? addSpend,
     required TResult orElse(),
   }) {
     if (getSpendList != null) {
@@ -212,6 +198,7 @@ class _$GetSpendListImpl implements _GetSpendList {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSpendList value) getSpendList,
     required TResult Function(_GetNextSpendList value) getNextSpendList,
+    required TResult Function(_AddSpend value) addSpend,
   }) {
     return getSpendList(this);
   }
@@ -221,6 +208,7 @@ class _$GetSpendListImpl implements _GetSpendList {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSpendList value)? getSpendList,
     TResult? Function(_GetNextSpendList value)? getNextSpendList,
+    TResult? Function(_AddSpend value)? addSpend,
   }) {
     return getSpendList?.call(this);
   }
@@ -230,6 +218,7 @@ class _$GetSpendListImpl implements _GetSpendList {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSpendList value)? getSpendList,
     TResult Function(_GetNextSpendList value)? getNextSpendList,
+    TResult Function(_AddSpend value)? addSpend,
     required TResult orElse(),
   }) {
     if (getSpendList != null) {
@@ -243,25 +232,21 @@ abstract class _GetSpendList implements SpendListEvent {
   const factory _GetSpendList(final String pocketID,
       {final bool skipIfLoaded}) = _$GetSpendListImpl;
 
-  @override
   String get pocketID;
   bool get skipIfLoaded;
 
   /// Create a copy of SpendListEvent
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetSpendListImplCopyWith<_$GetSpendListImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$GetNextSpendListImplCopyWith<$Res>
-    implements $SpendListEventCopyWith<$Res> {
+abstract class _$$GetNextSpendListImplCopyWith<$Res> {
   factory _$$GetNextSpendListImplCopyWith(_$GetNextSpendListImpl value,
           $Res Function(_$GetNextSpendListImpl) then) =
       __$$GetNextSpendListImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String pocketID});
 }
@@ -329,6 +314,7 @@ class _$GetNextSpendListImpl implements _GetNextSpendList {
   TResult when<TResult extends Object?>({
     required TResult Function(String pocketID, bool skipIfLoaded) getSpendList,
     required TResult Function(String pocketID) getNextSpendList,
+    required TResult Function(SpendReqDTO data) addSpend,
   }) {
     return getNextSpendList(pocketID);
   }
@@ -338,6 +324,7 @@ class _$GetNextSpendListImpl implements _GetNextSpendList {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pocketID, bool skipIfLoaded)? getSpendList,
     TResult? Function(String pocketID)? getNextSpendList,
+    TResult? Function(SpendReqDTO data)? addSpend,
   }) {
     return getNextSpendList?.call(pocketID);
   }
@@ -347,6 +334,7 @@ class _$GetNextSpendListImpl implements _GetNextSpendList {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pocketID, bool skipIfLoaded)? getSpendList,
     TResult Function(String pocketID)? getNextSpendList,
+    TResult Function(SpendReqDTO data)? addSpend,
     required TResult orElse(),
   }) {
     if (getNextSpendList != null) {
@@ -360,6 +348,7 @@ class _$GetNextSpendListImpl implements _GetNextSpendList {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSpendList value) getSpendList,
     required TResult Function(_GetNextSpendList value) getNextSpendList,
+    required TResult Function(_AddSpend value) addSpend,
   }) {
     return getNextSpendList(this);
   }
@@ -369,6 +358,7 @@ class _$GetNextSpendListImpl implements _GetNextSpendList {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSpendList value)? getSpendList,
     TResult? Function(_GetNextSpendList value)? getNextSpendList,
+    TResult? Function(_AddSpend value)? addSpend,
   }) {
     return getNextSpendList?.call(this);
   }
@@ -378,6 +368,7 @@ class _$GetNextSpendListImpl implements _GetNextSpendList {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSpendList value)? getSpendList,
     TResult Function(_GetNextSpendList value)? getNextSpendList,
+    TResult Function(_AddSpend value)? addSpend,
     required TResult orElse(),
   }) {
     if (getNextSpendList != null) {
@@ -391,14 +382,170 @@ abstract class _GetNextSpendList implements SpendListEvent {
   const factory _GetNextSpendList(final String pocketID) =
       _$GetNextSpendListImpl;
 
-  @override
   String get pocketID;
 
   /// Create a copy of SpendListEvent
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetNextSpendListImplCopyWith<_$GetNextSpendListImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddSpendImplCopyWith<$Res> {
+  factory _$$AddSpendImplCopyWith(
+          _$AddSpendImpl value, $Res Function(_$AddSpendImpl) then) =
+      __$$AddSpendImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({SpendReqDTO data});
+
+  $SpendReqDTOCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class __$$AddSpendImplCopyWithImpl<$Res>
+    extends _$SpendListEventCopyWithImpl<$Res, _$AddSpendImpl>
+    implements _$$AddSpendImplCopyWith<$Res> {
+  __$$AddSpendImplCopyWithImpl(
+      _$AddSpendImpl _value, $Res Function(_$AddSpendImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SpendListEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? data = null,
+  }) {
+    return _then(_$AddSpendImpl(
+      null == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as SpendReqDTO,
+    ));
+  }
+
+  /// Create a copy of SpendListEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SpendReqDTOCopyWith<$Res> get data {
+    return $SpendReqDTOCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$AddSpendImpl implements _AddSpend {
+  const _$AddSpendImpl(this.data);
+
+  @override
+  final SpendReqDTO data;
+
+  @override
+  String toString() {
+    return 'SpendListEvent.addSpend(data: $data)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddSpendImpl &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, data);
+
+  /// Create a copy of SpendListEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddSpendImplCopyWith<_$AddSpendImpl> get copyWith =>
+      __$$AddSpendImplCopyWithImpl<_$AddSpendImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String pocketID, bool skipIfLoaded) getSpendList,
+    required TResult Function(String pocketID) getNextSpendList,
+    required TResult Function(SpendReqDTO data) addSpend,
+  }) {
+    return addSpend(data);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String pocketID, bool skipIfLoaded)? getSpendList,
+    TResult? Function(String pocketID)? getNextSpendList,
+    TResult? Function(SpendReqDTO data)? addSpend,
+  }) {
+    return addSpend?.call(data);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String pocketID, bool skipIfLoaded)? getSpendList,
+    TResult Function(String pocketID)? getNextSpendList,
+    TResult Function(SpendReqDTO data)? addSpend,
+    required TResult orElse(),
+  }) {
+    if (addSpend != null) {
+      return addSpend(data);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetSpendList value) getSpendList,
+    required TResult Function(_GetNextSpendList value) getNextSpendList,
+    required TResult Function(_AddSpend value) addSpend,
+  }) {
+    return addSpend(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetSpendList value)? getSpendList,
+    TResult? Function(_GetNextSpendList value)? getNextSpendList,
+    TResult? Function(_AddSpend value)? addSpend,
+  }) {
+    return addSpend?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetSpendList value)? getSpendList,
+    TResult Function(_GetNextSpendList value)? getNextSpendList,
+    TResult Function(_AddSpend value)? addSpend,
+    required TResult orElse(),
+  }) {
+    if (addSpend != null) {
+      return addSpend(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddSpend implements SpendListEvent {
+  const factory _AddSpend(final SpendReqDTO data) = _$AddSpendImpl;
+
+  SpendReqDTO get data;
+
+  /// Create a copy of SpendListEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AddSpendImplCopyWith<_$AddSpendImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

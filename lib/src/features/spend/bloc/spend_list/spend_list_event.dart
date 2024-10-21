@@ -6,4 +6,5 @@ class SpendListEvent with _$SpendListEvent {
       {@Default(false) bool skipIfLoaded}) = _GetSpendList;
   const factory SpendListEvent.getNextSpendList(String pocketID) =
       _GetNextSpendList;
+  const factory SpendListEvent.addSpend(SpendReqDTO data) = _AddSpend;
 }

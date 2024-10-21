@@ -70,7 +70,6 @@ _$SpendReqDTOImpl _$$SpendReqDTOImplFromJson(Map<String, dynamic> json) =>
       categoryID: json['category_id'] as String,
       name: json['name'] as String,
       price: (json['price'] as num).toInt(),
-      isIncome: json['is_income'] as bool,
       type: (json['type'] as num).toInt(),
       date: json['date'] as String,
     );
@@ -81,7 +80,6 @@ Map<String, dynamic> _$$SpendReqDTOImplToJson(_$SpendReqDTOImpl instance) =>
       'category_id': instance.categoryID,
       'name': instance.name,
       'price': instance.price,
-      'is_income': instance.isIncome,
       'type': instance.type,
       'date': instance.date,
     };

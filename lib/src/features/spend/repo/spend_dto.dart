@@ -73,7 +73,6 @@ class SpendReqDTO with _$SpendReqDTO {
     @JsonKey(name: 'category_id') required String categoryID,
     required String name,
     required int price,
-    @JsonKey(name: 'is_income') required bool isIncome,
     required int type,
     required String date,
   }) = _SpendReqDTO;
